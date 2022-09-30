@@ -1,0 +1,56 @@
+/* logo font import, change to your taste, Leo  and remove if not used*/
+@import url('https://fonts.googleapis.com/css2?family=Rozha+One&family=Short+Stack&display=swap');
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+  
+  main {
+    flex: 1 0 auto;
+  }
+  
+  footer {
+    padding-top: 0;
+    text-align: right;
+  }
+
+  nav {
+    padding: 0 1rem;
+}
+
+/* logo font implementation, change to your taste, Leo. Don't forget to import */
+.brand-logo{
+    font-family:  'Rozha One', serif;
+}
+
+.parallax-container {
+    height: 250px !important;
+}
+
+.sticky-navbar{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    padding: 10px 0;
+    z-index: 999;
+}
+/* Only valid for the current photo on the hero slider, but might be convenient to have them here to adjust other photos */
+.slider .slides li img{
+    height: 120% !important;
+    background-position: bottom !important;
+}
+
+/* temp fic for carousel container */
+.main-container {
+    margin: 0 auto;
+    max-width: 1600px;
+    width: 100%;
+  }
+
+.car-card{
+width: 400px !important;
+}
+

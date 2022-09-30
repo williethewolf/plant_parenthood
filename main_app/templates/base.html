@@ -1,0 +1,125 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>{{page_name}} |  Plant Parenthood</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"/>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js" defer ></script>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+
+    </head>
+    <body>
+        <header class="">
+            <ul id="adddropdown" class="dropdown-content">
+                <li><a href="{% url 'plant_add' %}">Add a plant</a></li>
+                {% if request.user.is_active and request.user.is_staff %}
+                <li><a href="{% url 'plant_create' %}">Create plant entry in DB</a></li>
+                {% endif %}
+            </ul>
+            <ul id="viewdropdown" class="dropdown-content">
+                <li><a href="{% url 'plants_index' %}">My plants</a></li>
+                <li><a href="{% url 'plantsDB_index' %}">Plants DB</a></li>
+            </ul>
+            <div class="parallax-container">
+            <div class="slider">
+                <ul class="slides">
+                  <li>
+                    <img src="{% static "imgs/plants/general-use/00123-2517480318.png"%}"> <!-- random image -->
+                    <div class="caption center-align">
+                      <h3>All I see is green</h3>
+                      <h5 class="light grey-text text-lighten-3">And I took it too far</h5>
+                    </div>
+                  </li>
+                </ul>
+            </div>
+            </div>
+            <nav class='light-green lighten-1'>
+                <div class="nav-wrapper">
+                    <ul>
+                        <li>
+                            <a href="{% url 'home' %}" class="left brand-logo">Plant Parenthood</a>
+                        </li>
+                    </ul>
+                    <ul class="right">
+                        <li><a href="{% url 'social_plants_feed' %}">Social Plants</a></li>
+                        {% if user.is_authenticated %}
+                        <li>
+                            <a class="dropdown-trigger" href="#!" data-target="adddropdown">Add<i class="material-icons right">arrow_drop_down</i></a>
+                        </li>
+                        <li>
+                            <a class="dropdown-trigger" href="#!" data-target="viewdropdown">Plants<i class="material-icons right">arrow_drop_down</i></a>
+                        </li>
+                        <li>
+                            <a href="{% url 'logout' %}">Logout</a>
+                        </li>
+                        {% else %}
+                        <li>
+                            <a href="{% url 'login' %}">Login</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'signup' %}">Signup</a>
+                        </li>
+                        {% endif %}
+                        <li>
+                            <a href="{% url 'about' %}">About</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <main class="main-container">
+            {% block content %}
+            {% endblock %}
+        </main>
+        <footer class="page-footer light-green lighten-2">
+            <div class="right">
+                All Rights Reserved, &copy; <script>document.write(new Date().getFullYear())</script><span class = 'brand-logo'>Plant Parenthood</span> &nbsp;
+            </div>
+        </footer>
+        <script async defer>
+{% comment %} sticky navbar {% endcomment %}
+let scrollTopY = window.pageYOffset || document.body.scrollTop;
+let navbar = document.querySelector('nav');
+
+window.addEventListener('scroll', function() {
+    if(scrollTopY > 50) {
+          navbar.classList.add('sticky-nav');
+    } else {
+         navbar.classList.remove('sticky-nav');
+    }
+})
+{% comment %} drop down code {% endcomment %}
+            var dropdowns = document.querySelectorAll('.dropdown-trigger')
+for (var i = 0; i < dropdowns.length; i++){
+    M.Dropdown.init(dropdowns[i]);
+}
+{% comment %} Hero slider code {% endcomment %}
+document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.slider');
+    var instances = M.Slider.init(elems, {indicators:false, height:250});
+
+    var elems = document.querySelectorAll('.parallax');
+    var instances = M.Parallax.init(elems, {});
+
+    var elems = document.querySelectorAll('.carousel');
+    var instances = M.Carousel.init(elems, {height:300, numVisible:10, dist:0})
+  });
+{% comment %} Paralax code {% endcomment %}
+document.addEventListener('DOMContentLoaded', function() {
+    
+  });
+{% comment %} carousel code, might remplace the slider completely...or not! {% endcomment %}
+document.addEventListener('DOMContentLoaded', function() {
+    ;
+  });
+        </script>
+    </body>
+</html>
