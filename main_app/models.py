@@ -1,5 +1,3 @@
-from email.policy import default
-from pyexpat import model
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
@@ -12,6 +10,7 @@ class DbPlant(models.Model):
     botanical_name = models.CharField(max_length=50)
     description = models.TextField(max_length=150)
     time_till_dry = models.IntegerField()
+    #DB INFO ONLY
     added_at = models.DateField(auto_now_add=True)
     added_by = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     published = models.BooleanField(default=False)
@@ -20,21 +19,23 @@ class DbPlant(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('plant_details', kwargs={'cat_id': self.id})
+        return reverse('plant_details', kwargs={'plant_id': self.id})
+
+
 class OwnedPlant(models.Model):
     type = models.ManyToManyField(DbPlant)
     nickname = models.CharField(max_length=50)
     public=  models.BooleanField(default = False)
     healthy=  models.BooleanField(default = True)
     watered = models.BooleanField (default = False)
-    time_till_dry = models.IntegerField()
+    #time_till_dry = models.IntegerField()
     watering_date = models.DateField
     adopted_since = models.DateField(auto_now_add=True)
-    coments = models.TextField(max_length=150)
+    comments = models.TextField(max_length=150)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('cat_details', kwargs={'cat_id': self.id})
+        return reverse('plant_details', kwargs={'plant_id': self.id})

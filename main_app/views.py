@@ -26,10 +26,27 @@ from django.http import HttpResponse
 
 # User authentication
 def signup(request):
-  return HttpResponse('<h1>sign in</h1>')
-
-def login(request):
-  return HttpResponse('<h1>log in</h1>')
+    #Define taks for handling POST request
+    form = UserCreationForm()
+    error_message = ''
+    if request.method == 'POST':
+        #capture form inputs from user creation form
+        form = UserCreationForm(request.POST)
+        #validate the form inputs
+        if form.is_valid():
+            # save the input values as a new user to the database
+            user = form.save()
+            #programmatically log the user in
+            login(request, user)
+            #redirect user to the index page
+            return redirect('plants_index')
+        #if form is invalid, handle error
+        else:
+            error_message = 'Invalid credentials'
+    #Define taks for handling GET request
+    context = {'form': form, 'error_messages' : error_message}
+    #render template with empty form
+    return render(request, 'registration/signup.html', context)
 
 # Define the home view
 def home(request):
@@ -40,14 +57,14 @@ def about(request):
 
  # User interaction with DB 
 def DbPlants_index(request):
-  return HttpResponse('<h1>plants index</h1>')
+  return HttpResponse('<h1>plants DB index</h1>')
 
 def social_plants_feed(request):
-  return HttpResponse('<h1>plants index</h1>')
+  return HttpResponse('<h1>Plants Social feed</h1>')
 
 
 def plants_index(request):
-  return HttpResponse('<h1>plants index</h1>')
+  return HttpResponse('<h1>User personal plants index</h1>')
 
 def plant_details(request):
   return HttpResponse('<h1>plants details</h1>')
