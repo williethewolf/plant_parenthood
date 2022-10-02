@@ -1,14 +1,16 @@
 /* logo font import, change to your taste, Leo  and remove if not used*/
 @import url('https://fonts.googleapis.com/css2?family=Rozha+One&family=Short+Stack&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap');
 
 body {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
+    font-family: 'Inter', serif;
   }
   
   main {
-    flex: 1 0 auto;
+    flex-grow: 1;
   }
   
   footer {
@@ -37,20 +39,15 @@ body {
     padding: 10px 0;
     z-index: 999;
 }
-/* Only valid for the current photo on the hero slider, but might be convenient to have them here to adjust other photos */
-.slider .slides li img{
-    height: 120% !important;
-    background-position: bottom !important;
+
+.home-content {
+  height: 100%;
+  margin-top: 25%;
+  margin-left: 3rem;
+  margin-right: 3rem;
 }
-
-/* temp fic for carousel container */
-.main-container {
-    margin: 0 auto;
-    max-width: 1600px;
-    width: 100%;
-  }
-
-.car-card{
-width: 400px !important;
+.app-title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 4rem;
 }
-
