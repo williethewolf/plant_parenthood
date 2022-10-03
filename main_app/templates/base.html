@@ -16,37 +16,17 @@
     </head>
     <body>
         <header class="">
-            <ul id="adddropdown" class="dropdown-content">
-                <li><a href="{% url 'plant_add' %}">Add a plant</a></li>
-                {% if request.user.is_active and request.user.is_staff %}
-                <li><a href="{% url 'plant_create' %}">Create plant entry in DB</a></li>
-                {% endif %}
-            </ul>
-            <ul id="viewdropdown" class="dropdown-content">
-                <li><a href="{% url 'plants_index' %}">My plants</a></li>
-                <li><a href="{% url 'plantsDB_index' %}">Plants DB</a></li>
-            </ul>
-            <div class="parallax-container">
-            <div class="slider">
-                <ul class="slides">
-                  <li>
-                    <img src="{% static "imgs/plants/general-use/00123-2517480318.png"%}"> <!-- random image -->
-                    <div class="caption center-align">
-                      <h3>All I see is green</h3>
-                      <h5 class="light grey-text text-lighten-3">And I took it too far</h5>
-                    </div>
-                  </li>
-                </ul>
-            </div>
-            </div>
-            <nav class='light-green lighten-1'>
+            <nav class="white">
                 <div class="nav-wrapper">
                     <ul>
                         <li>
-                            <a href="{% url 'home' %}" class="left brand-logo">Plant Parenthood</a>
+                            <a href="{% url 'home' %}" class="left brand-logo">PPH</a>
                         </li>
                     </ul>
                     <ul class="right">
+                        <li>
+                            <a href="{% url 'about' %}">About</a>
+                        </li>
                         <li><a href="{% url 'social_plants_feed' %}">Social Plants</a></li>
                         {% if user.is_authenticated %}
                         <li>
@@ -62,14 +42,7 @@
                         <li>
                             <a href="{% url 'login' %}">Login</a>
                         </li>
-                        <li>
-                            <a href="{% url 'signup' %}">Signup</a>
-                        </li>
                         {% endif %}
-                        <li>
-                            <a href="{% url 'about' %}">About</a>
-                        </li>
-                        
                     </ul>
                 </div>
             </nav>
@@ -78,9 +51,14 @@
             {% block content %}
             {% endblock %}
         </main>
-        <footer class="page-footer light-green lighten-2">
-            <div class="right">
-                All Rights Reserved, &copy; <script>document.write(new Date().getFullYear())</script><span class = 'brand-logo'>Plant Parenthood</span> &nbsp;
+        <footer class="page-footer white">
+            <div class="container">
+                
+            </div>
+            <div class="footer-copyright white black-text">
+                <div class="container">
+                    All Rights Reserved, &copy; <script>document.write(new Date().getFullYear())</script><span> Plant Parenthood</span> &nbsp;
+                </div>
             </div>
         </footer>
         <script async defer>

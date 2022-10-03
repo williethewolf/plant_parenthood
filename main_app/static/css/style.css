@@ -3,29 +3,38 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap');
 
 body {
-    display: flex;
-    min-height: 100vh;
-    flex-direction: column;
-    font-family: 'Inter', serif;
-  }
-  
-  main {
-    flex-grow: 1;
-  }
-  
-  footer {
-    padding-top: 0;
-    text-align: right;
-  }
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  font-family: 'Inter', serif;
+}
 
-  nav {
-    padding: 0 1rem;
+main {
+  flex-grow: 1;
+}
+
+footer {
+  padding-top: 0;
+  text-align: right;
+}
+
+nav {
+  padding: 0 1rem;
+  box-shadow: none;
+}
+
+nav ul a {
+  color: black;
+}
+
+nav .brand-logo {
+  font-weight: 700;
+  color: black;
+  margin-left: 3rem;
 }
 
 /* logo font implementation, change to your taste, Leo. Don't forget to import */
-.brand-logo{
-    font-family:  'Rozha One', serif;
-}
+
 
 .parallax-container {
     height: 250px !important;
@@ -46,8 +55,45 @@ body {
   margin-left: 3rem;
   margin-right: 3rem;
 }
+
+.home-content p {
+  font-size: 1.5rem;
+}
+.signup {
+  font-weight: 600;
+}
+
 .app-title {
   font-family: 'Inter', sans-serif;
   font-weight: 700;
   font-size: 4rem;
+}
+
+.fade-in-image {
+  animation: fadeIn 6s;
+}
+@keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+.img-container img {
+  margin-top: 6rem;
+  filter: drop-shadow(50px 60px 3rem #727272);
+  max-width: 100%;
+  height:auto;
+}
+.footer-copyright {
+  color: black;
+}
+
+.footer-copyright .container {
+  margin-right: 0;
+}
+
+@media only screen 
+and (max-width : 768px) {
+    .row .col.s6 {
+      width: 100%;
+    }
 }
