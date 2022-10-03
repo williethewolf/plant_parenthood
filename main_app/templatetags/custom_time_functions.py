@@ -6,11 +6,15 @@ from django import template
 register = template.Library()
 
 #get today's date and pass as a custom template tag
-@register.filter
-def days_until(date):
-    delta = date - today_date()
-    return delta.days
+@register.simple_tag
+def days_until(date, watertime):
+    delta = today_date() - date
+    return watertime-delta.days
 
 @register.simple_tag
 def today_date():
      return datetime.now().date()
+
+@register.filter(name='times') 
+def times(number):
+    return range(number)
