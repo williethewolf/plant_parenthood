@@ -60,10 +60,10 @@ def about(request):
   return render(request, 'about.html', {'page_name': "About"} )
 
  # User interaction with DB 
-def DbPlants_index(request):
- #IN THE BASE HTML, THE USER HAS TO BE CHECKED AGAINST TO OLY SHOW BOTH PUBLIC FEED AND THE DB
+def dbPlants_index(request):
+ #IN THE BASE HTML, THE USER HAS TO BE CHECKED AGAINST TO ONLY SHOW BOTH PUBLIC FEED AND THE DB
    plants = DbPlant.objects.filter(published = True)
-   return render(request, 'plants/plants_index.html', { 'page_name' : 'Plant Parenthood Plant Database', 'plants':plants} )
+   return render(request, 'plants/dbindex.html', { 'page_name' : 'Plant Parenthood Plant Database', 'plants':plants} )
 
 def social_plants_feed(request):
   return HttpResponse('<h1>Plants Social feed</h1>')
@@ -72,10 +72,15 @@ def social_plants_feed(request):
 def plants_index(request):
   if request.user:
     plants = OwnedPlant.objects.filter(user = request.user)
-    return render (request, 'plants/plants_index.html', { 'page_name' : 'My Owned Plants', 'plants':plants} )
+    return render (request, 'plants/index.html', { 'page_name' : 'My Owned Plants', 'plants':plants} )
 
-def plant_details(request):
-  return HttpResponse('<h1>plants details</h1>')
+def plant_details(request, plant_id):
+    plant = OwnedPlant.objects.get(id=plant_id)
+    return render (request, 'plants/details.html', {'page_name':'Plant Details', 'plant': plant})
+
+def dbplant_info(request, plant_id):
+    plant = DbPlant.objects.get(id=plant_id)
+    return render (request, 'plants/details.html', {'page_name':'Plant Info Sheet', 'plant': plant})
 
 def add_watering(request):
   return HttpResponse('<h1>Water Plants</h1>')
@@ -93,13 +98,13 @@ def add_photo(request):
 
 def update_watering_date(request, plant_id, date_today):
   OwnedPlant.objects.get(ID=plant_id).update(watering_date=date_today)
-  return redirect('plant_details', plant_id=plant_id)
+  return redirect('details', plant_id=plant_id)
 
 class OwnedPlantAdd(CreateView):
 #remove above and uncomment when log ins are set up and implemented for the super users
 # class PlantAdd(LoginRequiredMixin, CreateView):
     model = OwnedPlant
-    fields= ("type", "nickname", "healthy")
+    fields= ("type", "nickname",)
     
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -120,11 +125,11 @@ class OwnedPlantDelete(DeleteView):
 class DbPlantCreate(CreateView):
 #remove above and uncomment when log ins are set up and implemented for the super users
 # class DbPlantCreate(LoginRequiredMixin, CreateView):
-    model = OwnedPlant
-    fields= ("type", "nickname", "healthy")
+    model = DbPlant
+    fields= ("common_name", "botanical_name", "description", "time_till_dry")
     
     def form_valid(self, form):
-        form.instance.user = self.request.user
+        form.instance.added_by = self.request.user
         return super().form_valid(form)
 
 class DbPlantUpdate(LoginRequiredMixin, UpdateView):

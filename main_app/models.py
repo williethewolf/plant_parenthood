@@ -16,7 +16,7 @@ class DbPlant(models.Model):
     published = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.name
+        return self.common_name
 
     def get_absolute_url(self):
         return reverse('plant_details', kwargs={'plant_id': self.id})
@@ -29,13 +29,13 @@ class OwnedPlant(models.Model):
     healthy=  models.BooleanField(default = True)
     watered = models.BooleanField (default = False)
     #time_till_dry = models.IntegerField()
-    watering_date = models.DateField
+    watering_date = models.DateField(auto_now_add=True)
     adopted_since = models.DateField(auto_now_add=True)
     comments = models.TextField(max_length=150)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.name
+        return self.nickname
 
     def get_absolute_url(self):
         return reverse('plant_details', kwargs={'plant_id': self.id})
