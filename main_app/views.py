@@ -1,17 +1,19 @@
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-#from .models import Plant
-#from .forms import WateringForm
+
+#I don;t think we need it but I leave it here as a concept. I think instead of using
+#a custom form a simple button on a form on the view will work
+######## from .forms import WateringForm #########
 
 #import form for authetication signup
-
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
-
+#user display and management
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required 
 from django.contrib.auth.mixins import LoginRequiredMixin # research StaffuserRequiredMixin
 
+# custom models being used
 from .models import DbPlant, OwnedPlant
 
 #for the photo implementation
@@ -22,6 +24,8 @@ from .models import DbPlant, OwnedPlant
 
 #Remove this line for clean up once we implement the proper views renders
 from django.http import HttpResponse
+
+
 
 
 # User authentication
@@ -57,14 +61,18 @@ def about(request):
 
  # User interaction with DB 
 def DbPlants_index(request):
-  return HttpResponse('<h1>plants DB index</h1>')
+ #IN THE BASE HTML, THE USER HAS TO BE CHECKED AGAINST TO OLY SHOW BOTH PUBLIC FEED AND THE DB
+   plants = DbPlant.objects.filter(published = True)
+   return render(request, 'plants/plants_index.html', { 'page_name' : 'Plant Parenthood Plant Database', 'plants':plants} )
 
 def social_plants_feed(request):
   return HttpResponse('<h1>Plants Social feed</h1>')
 
 
 def plants_index(request):
-  return HttpResponse('<h1>User personal plants index</h1>')
+  if request.user:
+    plants = OwnedPlant.objects.filter(user = request.user)
+    return render (request, 'plants/plants_index.html', { 'page_name' : 'My Owned Plants', 'plants':plants} )
 
 def plant_details(request):
   return HttpResponse('<h1>plants details</h1>')
@@ -82,6 +90,10 @@ def add_watering(request):
 
 def add_photo(request):
   return HttpResponse('<h1>Water Plants</h1>')
+
+def update_watering_date(request, plant_id, date_today):
+  OwnedPlant.objects.get(ID=plant_id).update(watering_date=date_today)
+  return redirect('plant_details', plant_id=plant_id)
 
 class OwnedPlantAdd(CreateView):
 #remove above and uncomment when log ins are set up and implemented for the super users

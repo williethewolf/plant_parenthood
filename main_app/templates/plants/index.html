@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load 'custom_time_functions' %}
+
+{% block content %}
+    <h1>{%page_title%}</h1>
+    {% for plant in plants %}
+    <a href ="/plants/{{ plant.id }}">
+        <div class="card">
+            <div class = "card-content">
+                <row>
+                    <div class="col6">
+                        <img src="{% static "main_app/static/imgs/plants/db-use/00137-2471253188-full shot devils ivy in a pot by itself with a white background in a boho apartment being watered, Sony Alpha α7, epic, bright,.png"%}" alt="{{plant.nickname}} photo">
+                        <span class="card-title"> {{plant.nickname}} <span/>
+                        <p>type: {{plant.type.common_name}}</p>
+                    </div>
+                    <div class="col6">
+                        <p>Last Watering: {{plant.watering_date}}</p>
+                        {% get_today as today %}
+                        {% if days_since(plant.watering_date) > plant.time_till_dry %}
+                        <span><p class"blue-text">Watered</p><button disabled="disabled">Water</button></span>
+                        {% else %}                    
+                        <span><p class"red-text">Needs Water</p>
+                            <form action={% url 'update_watering_date' plant.id  today_date %}" method="post"></form><button>Water</button></span>
+                        {% endif %}
+                    </div>
+                </row>
+            </div>
+        </div>
+    </a>      
+
+    {% endfor %}
+{% endblock %}
