@@ -14,7 +14,7 @@ def make_published(modeladmin, request, queryset):
 
 class DbPlantAdmin(admin.ModelAdmin):
     list_display = ['common_name', 'published']
-    ordering = ['creation_time']
+    ordering = ['added_at']
     actions = [make_published]
 
 admin.site.register(DbPlant, DbPlantAdmin)
