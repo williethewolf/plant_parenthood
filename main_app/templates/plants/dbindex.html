@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load custom_time_functions %}
+{% load static %}
+
+{% block content %}
+    <h1>{{page_name}}</h1>
+    <div class="row">
+    {% for plant in plants %}
+        <div class="col s3">
+            <a href ="/plantsdb/{{ plant.id }}">
+                <div class="card">
+                    <div class = "card-content">
+                        <div class="row">
+                            <img src="{% static "/imgs/plants/db-use/devils_ivy.png"%}" style="width: 100%";>
+                            <div>                                
+                                <span class="card-title"> {{plant.common_name}} <span/>
+                                    <h6><i>{{plant.botanical_name}}</i></h6>
+                                <div>
+                                    <p>Description:</p>
+                                    <p> {{plant.description}}</p>
+                                </div>
+                                <div>
+                                    <p>Watering needs:</p> 
+                                    <p>Every {{plant.time_till_dry}} days or moist soil</p>                                
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div> 
+    </div>     
+
+    {% endfor %}
+{% endblock %}

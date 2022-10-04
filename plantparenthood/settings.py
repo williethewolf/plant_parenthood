@@ -42,6 +42,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    #custom template tag
+    'main_app.templatetags.custom_time_functions'
 ]
 
 MIDDLEWARE = [

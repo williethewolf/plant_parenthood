@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    {% if object %}
+    <h1>Edit Plant</h1>
+    <h4>{{object.name}}</h4>
+    {% else %}
+    <h1>Add new Plant to my personal collection</h1>
+    {% endif %}
+    <div>
+        <form action="" method="POST">
+            {% csrf_token %}
+            <table class= "stripped">
+                {{form.as_table}}
+            </table>
+            {% if object %}
+            <input class="btn yellow" type="submit" value="Edit Plant">
+            {% else %}
+            <input class="btn green" type="submit" value="Add Plant">
+            {% endif %}
+        </form>
+    </div>
+<script>
+    const selectEl = document.getElementById('id_type')
+    const checkEl =document.getElementById('id_healthy')
+    M.FormSelect.init(selectEl)
+    {% comment %} checkbox fix {% endcomment %}
+    {% comment %} const checkFix = document.createElement('span')
+    checkFix.innerHTML = ""
+    checkEl.parentNode.insertBefore(checkFix,checkEl.nextSibling) {% endcomment %}
+
+</script>   
+{% endblock%}
