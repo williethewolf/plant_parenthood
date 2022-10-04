@@ -13,37 +13,40 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
         <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+        <script src="https://kit.fontawesome.com/fe72927f25.js" crossorigin="anonymous"></script>
     </head>
     <body>
         <header class="">
             <nav class="white">
-                <div class="nav-wrapper">
-                    <ul>
-                        <li>
-                            <a href="{% url 'home' %}" class="left brand-logo">PPH</a>
-                        </li>
-                    </ul>
-                    <ul class="right">
-                        <li>
-                            <a href="{% url 'about' %}">About</a>
-                        </li>
-                        <li><a href="{% url 'social_plants_feed' %}">Social Plants</a></li>
-                        {% if user.is_authenticated %}
-                        <li>
-                            <a class="dropdown-trigger" href="#!" data-target="adddropdown">Add<i class="material-icons right">arrow_drop_down</i></a>
-                        </li>
-                        <li>
-                            <a class="dropdown-trigger" href="#!" data-target="viewdropdown">Plants<i class="material-icons right">arrow_drop_down</i></a>
-                        </li>
-                        <li>
-                            <a href="{% url 'logout' %}">Logout</a>
-                        </li>
-                        {% else %}
-                        <li>
-                            <a href="{% url 'login' %}">Login</a>
-                        </li>
-                        {% endif %}
-                    </ul>
+                <a href="{% url 'home' %}" class="logo"><span class="bold-green">Plant</span>PH</a>
+                <input type="checkbox" id="check"/>
+                <label for="check" class="checkbtn">
+                    <i class="fas fa-bars"></i>
+                </label>
+                <ul>
+                    <li>
+                        <a href="{% url 'about' %}">About</a>
+                    </li>
+                    <li><a href="{% url 'social_plants_feed' %}">Social Plants</a></li>
+                    {% if user.is_authenticated %}
+                    <li>
+                        <a class="dropdown-trigger" href="#!" data-target="adddropdown">Add<i class="material-icons right">arrow_drop_down</i></a>
+                    </li>
+                    <li>
+                        <a class="dropdown-trigger" href="#!" data-target="viewdropdown">Plants<i class="material-icons right">arrow_drop_down</i></a>
+                    </li>
+                    <li>
+                        <a href="{% url 'logout' %}">Logout</a>
+                    </li>
+                    {% else %}
+                    <li>
+                        <a href="{% url 'login' %}">Login</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'signup' %}" class="bold-green">Signup</a>
+                    </li>
+                    {% endif %}
+                </ul>
                 </div>
             </nav>
         </header>
