@@ -17,6 +17,16 @@
     </head>
     <body>
         <header class="">
+            <ul id="adddropdown" class="dropdown-content">
+                <li><a href="{% url 'plant_add' %}">Add a plant</a></li>
+                {% if request.user.is_active and request.user.is_staff %}
+                <li><a href="{% url 'plant_create' %}">Create plant entry in DB</a></li>
+                {% endif %}
+            </ul>
+            <ul id="viewdropdown" class="dropdown-content">
+                <li><a href="{% url 'plants_index' %}">My plants</a></li>
+                <li><a href="{% url 'plantsDB_index' %}">Plants DB</a></li>
+            </ul>
             <nav class="white">
                 <a href="{% url 'home' %}" class="logo"><span class="bold-green">Plant</span>PH</a>
                 <input type="checkbox" id="check"/>
@@ -64,42 +74,5 @@
                 </div>
             </div>
         </footer>
-        <script async defer>
-{% comment %} sticky navbar {% endcomment %}
-let scrollTopY = window.pageYOffset || document.body.scrollTop;
-let navbar = document.querySelector('nav');
-
-window.addEventListener('scroll', function() {
-    if(scrollTopY > 50) {
-          navbar.classList.add('sticky-nav');
-    } else {
-         navbar.classList.remove('sticky-nav');
-    }
-})
-{% comment %} drop down code {% endcomment %}
-            var dropdowns = document.querySelectorAll('.dropdown-trigger')
-for (var i = 0; i < dropdowns.length; i++){
-    M.Dropdown.init(dropdowns[i]);
-}
-{% comment %} Hero slider code {% endcomment %}
-document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelectorAll('.slider');
-    var instances = M.Slider.init(elems, {indicators:false, height:250});
-
-    var elems = document.querySelectorAll('.parallax');
-    var instances = M.Parallax.init(elems, {});
-
-    var elems = document.querySelectorAll('.carousel');
-    var instances = M.Carousel.init(elems, {height:300, numVisible:10, dist:0})
-  });
-{% comment %} Paralax code {% endcomment %}
-document.addEventListener('DOMContentLoaded', function() {
-    
-  });
-{% comment %} carousel code, might remplace the slider completely...or not! {% endcomment %}
-document.addEventListener('DOMContentLoaded', function() {
-    ;
-  });
-        </script>
     </body>
 </html>

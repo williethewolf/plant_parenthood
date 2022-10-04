@@ -27,7 +27,7 @@ nav {
   background: white;
   align-items: center;
   justify-content: space-between;
-  padding: 0 50px 0 100px;
+  padding: 0 50px 0 4rem;
   flex-wrap: wrap;
 
 }
@@ -119,7 +119,7 @@ nav .logo {
 
 .img-container img {
   margin-top: 6rem;
-  filter: drop-shadow(50px 60px 3rem #727272);
+  filter: drop-shadow(30px 15px 1rem #acacac);
   max-width: 100%;
   height:auto;
 }
