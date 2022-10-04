@@ -3,6 +3,7 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 #imports dates so we can calculate times between waterings
 from datetime import datetime
+from django.utils import timezone
 # Create your models here.
 
 class DbPlant(models.Model):
@@ -16,7 +17,7 @@ class DbPlant(models.Model):
     published = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.name
+        return self.common_name
 
     def get_absolute_url(self):
         return reverse('plant_details', kwargs={'plant_id': self.id})
@@ -29,13 +30,13 @@ class OwnedPlant(models.Model):
     healthy=  models.BooleanField(default = True)
     watered = models.BooleanField (default = False)
     #time_till_dry = models.IntegerField()
-    watering_date = models.DateField
-    adopted_since = models.DateField(auto_now_add=True)
+    watering_date = models.DateField(default=timezone.now)
+    adopted_since = models.DateField(default=timezone.now)
     comments = models.TextField(max_length=150)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.name
+        return self.nickname
 
     def get_absolute_url(self):
         return reverse('plant_details', kwargs={'plant_id': self.id})
