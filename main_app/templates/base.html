@@ -27,7 +27,7 @@
                 <li><a href="{% url 'plants_index' %}">My plants</a></li>
                 <li><a href="{% url 'plantsDB_index' %}">Plants DB</a></li>
             </ul>
-            <nav class="white">
+            <nav class="white" id="navbar">
                 <a href="{% url 'home' %}" class="logo"><span class="bold-green">Plant</span>PH</a>
                 <input type="checkbox" id="check"/>
                 <label for="check" class="checkbtn">
@@ -74,11 +74,29 @@
                 </div>
             </div>
         </footer>
+
         <script>
             {% comment %} drop down code {% endcomment %}
             var dropdowns = document.querySelectorAll('.dropdown-trigger')
             for (var i = 0; i < dropdowns.length; i++){
             M.Dropdown.init(dropdowns[i]);
+            }
+
+            // STICKY NAVBAR
+            window.onscroll = function() {myFunction()};
+
+            var navbar = document.getElementById("navbar");
+
+            // Get the offset position of the navbar
+            var sticky = navbar.offsetTop;
+
+            // Add the sticky class to the navbar when you reach its scroll position. Remove "sticky" when you leave the scroll position
+            function myFunction() {
+            if (window.pageYOffset >= sticky) {
+                navbar.classList.add("sticky")
+            } else {
+                navbar.classList.remove("sticky");
+            }
             }
         </script>
     </body>
