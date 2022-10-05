@@ -16,7 +16,7 @@
         <script src="https://kit.fontawesome.com/fe72927f25.js" crossorigin="anonymous"></script>
     </head>
     <body>
-        <header class="">
+        <header>
             <ul id="adddropdown" class="dropdown-content">
                 <li><a href="{% url 'plant_add' %}">Add a plant</a></li>
                 {% if request.user.is_active and request.user.is_staff %}
