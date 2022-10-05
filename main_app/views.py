@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.urls import reverse
 
 #I don;t think we need it but I leave it here as a concept. I think instead of using
 #a custom form a simple button on a form on the view will work
@@ -82,19 +83,18 @@ def dbplant_info(request, plant_id):
     plant = DbPlant.objects.get(id=plant_id)
     return render (request, 'plants/details.html', {'page_name':'Plant Info Sheet', 'plant': plant})
 
-def add_watering(request):
-  return HttpResponse('<h1>Water Plants</h1>')
-
 #I think we wrap all three interactions - watering, health and visibility under a single view called toggles or interactions.
 
-# def health_toggle(request):
-#   return HttpResponse('<h1>Water Plants</h1>')
+def health_toggle(request):
+    watered_plant = OwnedPlant.objects.get(id=plant_id)
+    watered_plant.healthy= not watered_plant.healthy
 
-# def visibility_toggle(request):
-#   return HttpResponse('<h1>Water Plants</h1>')
+def visibility_toggle(request):
+    watered_plant = OwnedPlant.objects.get(id=plant_id)
+    watered_plant.public= not watered_plant.public
 
 def add_photo(request):
-  return HttpResponse('<h1>Water Plants</h1>')
+  return HttpResponse('<h1>Add a photo</h1>')
 
 def update_watering_date(request, plant_id, today):
   watered_plant = OwnedPlant.objects.get(id=plant_id)
@@ -103,11 +103,12 @@ def update_watering_date(request, plant_id, today):
   watered_plant.save(update_fields=['watering_date'])
   return redirect('plant_details', plant_id=plant_id)
 
-class OwnedPlantAdd(CreateView):
-#remove above and uncomment when log ins are set up and implemented for the super users
-# class PlantAdd(LoginRequiredMixin, CreateView):
+class OwnedPlantAdd(LoginRequiredMixin, CreateView):
     model = OwnedPlant
     fields= ("type", "nickname",)
+
+    def get_success_url(self):
+        return reverse('plant_details', kwargs={'plant_id':self.object.pk})
     
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -125,15 +126,18 @@ class OwnedPlantDelete(DeleteView):
 
 # Admin and staff interactions
 
-class DbPlantCreate(CreateView):
-#remove above and uncomment when log ins are set up and implemented for the super users
-# class DbPlantCreate(LoginRequiredMixin, CreateView):
+class DbPlantCreate(LoginRequiredMixin, CreateView):
     model = DbPlant
     fields= ("common_name", "botanical_name", "description", "time_till_dry")
+
+    def get_success_url(self):
+        return reverse('plantdb_info', kwargs={'plant_id':self.object.pk})
     
     def form_valid(self, form):
         form.instance.added_by = self.request.user
         return super().form_valid(form)
+    
+   
 
 class DbPlantUpdate(LoginRequiredMixin, UpdateView):
 #remove above and uncomment when log ins are set up and implemented for the super users    
