@@ -24,7 +24,7 @@ class DbPlant(models.Model):
 
 
 class OwnedPlant(models.Model):
-    type = models.ManyToManyField(DbPlant)
+    type = models.ManyToManyField(DbPlant, limit_choices_to={'published': True},)
     nickname = models.CharField(max_length=50)
     public=  models.BooleanField(default = False)
     healthy=  models.BooleanField(default = True)
@@ -32,7 +32,7 @@ class OwnedPlant(models.Model):
     #time_till_dry = models.IntegerField()
     watering_date = models.DateField(default=timezone.now)
     adopted_since = models.DateField(default=timezone.now)
-    comments = models.TextField(max_length=150)
+    comments = models.TextField(max_length=150, default="No comments yet")
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
