@@ -96,9 +96,12 @@ def add_watering(request):
 def add_photo(request):
   return HttpResponse('<h1>Water Plants</h1>')
 
-def update_watering_date(request, plant_id, date_today):
-  OwnedPlant.objects.get(ID=plant_id).update(watering_date=date_today)
-  return redirect('details', plant_id=plant_id)
+def update_watering_date(request, plant_id, today):
+  watered_plant = OwnedPlant.objects.get(id=plant_id)
+  watered_plant.watering_date=today
+
+  watered_plant.save(update_fields=['watering_date'])
+  return redirect('plant_details', plant_id=plant_id)
 
 class OwnedPlantAdd(CreateView):
 #remove above and uncomment when log ins are set up and implemented for the super users

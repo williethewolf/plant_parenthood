@@ -2,6 +2,11 @@ from django.contrib import admin
 from django.urls import path, include
 from . import views
 
+#to pass the date in the URL we need to conver it as a string using a custom path converter <date:...>
+from django.urls import path, register_converter
+from main_app.dateconverter import DateConverter
+register_converter(DateConverter, 'date')
+
 urlpatterns = [
     path('', views.home, name="home"),
     #auth
@@ -15,10 +20,10 @@ urlpatterns = [
     path ('socialfeed/', views.social_plants_feed, name = "social_plants_feed"),
 # DETAILS
     path ('plants/<int:plant_id>', views.plant_details, name = "plant_details"),
-    path ('plantsdb/<int:plant_id>', views.dbplant_info, name = "plant_details"),
+    path ('plantsdb/<int:plant_id>', views.dbplant_info, name = "plantdb_info"),
 
 #water plants
-    path ('plants/<int:plant_id>/update_watering_date/<today>', views.update_watering_date, name = 'update_watering_date'),
+    path ('plants/<int:plant_id>/update_watering_date/<date:today>', views.update_watering_date, name = 'update_watering_date'),
 
 
     #class paths are passed .as_view() to render the class defaults

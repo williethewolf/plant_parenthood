@@ -1,6 +1,6 @@
 import re
 #import time and date utils from django
-from datetime import datetime
+from django.utils import timezone
 #import templates to gnerate a tag to use anywhere in the site
 from django import template
 register = template.Library()
@@ -13,7 +13,7 @@ def days_until(date, watertime):
 
 @register.simple_tag
 def today_date():
-     return datetime.now().date()
+     return timezone.now().date()
 
 @register.filter(name='times') 
 def times(number):
