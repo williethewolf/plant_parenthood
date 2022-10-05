@@ -13,7 +13,7 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
         <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
-
+        <script src="https://kit.fontawesome.com/fe72927f25.js" crossorigin="anonymous"></script>
     </head>
     <body>
         <header class="">
@@ -27,51 +27,36 @@
                 <li><a href="{% url 'plants_index' %}">My plants</a></li>
                 <li><a href="{% url 'plantsDB_index' %}">Plants DB</a></li>
             </ul>
-            <div class="parallax-container">
-            <div class="slider">
-                <ul class="slides">
-                  <li>
-                    <img src="{% static "imgs/plants/general-use/00123-2517480318.png"%}"> <!-- random image -->
-                    <div class="caption center-align">
-                      <h3>All I see is green</h3>
-                      <h5 class="light grey-text text-lighten-3">And I took it too far</h5>
-                    </div>
-                  </li>
+            <nav class="white">
+                <a href="{% url 'home' %}" class="logo"><span class="bold-green">Plant</span>PH</a>
+                <input type="checkbox" id="check"/>
+                <label for="check" class="checkbtn">
+                    <i class="fas fa-bars"></i>
+                </label>
+                <ul>
+                    <li>
+                        <a href="{% url 'about' %}">About</a>
+                    </li>
+                    <li><a href="{% url 'social_plants_feed' %}">Social Plants</a></li>
+                    {% if user.is_authenticated %}
+                    <li>
+                        <a class="dropdown-trigger" href="#!" data-target="adddropdown">Add<i class="material-icons right">arrow_drop_down</i></a>
+                    </li>
+                    <li>
+                        <a class="dropdown-trigger" href="#!" data-target="viewdropdown">Plants<i class="material-icons right">arrow_drop_down</i></a>
+                    </li>
+                    <li>
+                        <a href="{% url 'logout' %}">Logout</a>
+                    </li>
+                    {% else %}
+                    <li>
+                        <a href="{% url 'login' %}">Login</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'signup' %}" class="bold-green">Signup</a>
+                    </li>
+                    {% endif %}
                 </ul>
-            </div>
-            </div>
-            <nav class='light-green lighten-1'>
-                <div class="nav-wrapper">
-                    <ul>
-                        <li>
-                            <a href="{% url 'home' %}" class="left brand-logo">Plant Parenthood</a>
-                        </li>
-                    </ul>
-                    <ul class="right">
-                        <li><a href="{% url 'social_plants_feed' %}">Social Plants</a></li>
-                        {% if user.is_authenticated %}
-                        <li>
-                            <a class="dropdown-trigger" href="#!" data-target="adddropdown">Add<i class="material-icons right">arrow_drop_down</i></a>
-                        </li>
-                        <li>
-                            <a class="dropdown-trigger" href="#!" data-target="viewdropdown">Plants<i class="material-icons right">arrow_drop_down</i></a>
-                        </li>
-                        <li>
-                            <a href="{% url 'logout' %}">Logout</a>
-                        </li>
-                        {% else %}
-                        <li>
-                            <a href="{% url 'login' %}">Login</a>
-                        </li>
-                        <li>
-                            <a href="{% url 'signup' %}">Signup</a>
-                        </li>
-                        {% endif %}
-                        <li>
-                            <a href="{% url 'about' %}">About</a>
-                        </li>
-                        
-                    </ul>
                 </div>
             </nav>
         </header>
@@ -79,47 +64,15 @@
             {% block content %}
             {% endblock %}
         </main>
-        <footer class="page-footer light-green lighten-2">
-            <div class="right">
-                All Rights Reserved, &copy; <script>document.write(new Date().getFullYear())</script><span class = 'brand-logo'>Plant Parenthood</span> &nbsp;
+        <footer class="page-footer white">
+            <div class="container">
+                
+            </div>
+            <div class="footer-copyright white black-text">
+                <div class="container">
+                    All Rights Reserved, &copy; <script>document.write(new Date().getFullYear())</script><span> Plant Parenthood</span> &nbsp;
+                </div>
             </div>
         </footer>
-        <script async defer>
-{% comment %} sticky navbar {% endcomment %}
-let scrollTopY = window.pageYOffset || document.body.scrollTop;
-let navbar = document.querySelector('nav');
-
-window.addEventListener('scroll', function() {
-    if(scrollTopY > 50) {
-          navbar.classList.add('sticky-nav');
-    } else {
-         navbar.classList.remove('sticky-nav');
-    }
-})
-{% comment %} drop down code {% endcomment %}
-            var dropdowns = document.querySelectorAll('.dropdown-trigger')
-for (var i = 0; i < dropdowns.length; i++){
-    M.Dropdown.init(dropdowns[i]);
-}
-{% comment %} Hero slider code {% endcomment %}
-document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelectorAll('.slider');
-    var instances = M.Slider.init(elems, {indicators:false, height:250});
-
-    var elems = document.querySelectorAll('.parallax');
-    var instances = M.Parallax.init(elems, {});
-
-    var elems = document.querySelectorAll('.carousel');
-    var instances = M.Carousel.init(elems, {height:300, numVisible:10, dist:0})
-  });
-{% comment %} Paralax code {% endcomment %}
-document.addEventListener('DOMContentLoaded', function() {
-    
-  });
-{% comment %} carousel code, might remplace the slider completely...or not! {% endcomment %}
-document.addEventListener('DOMContentLoaded', function() {
-    ;
-  });
-        </script>
     </body>
 </html>
