@@ -74,5 +74,12 @@
                 </div>
             </div>
         </footer>
+        <script>
+            {% comment %} drop down code {% endcomment %}
+            var dropdowns = document.querySelectorAll('.dropdown-trigger')
+            for (var i = 0; i < dropdowns.length; i++){
+            M.Dropdown.init(dropdowns[i]);
+            }
+        </script>
     </body>
 </html>
