@@ -117,12 +117,14 @@ class OwnedPlantAdd(LoginRequiredMixin, CreateView):
 class OwnedPlantUpdate(LoginRequiredMixin, UpdateView):
 #remove above and uncomment when log ins are set up and implemented for the super users    
 # class PlantUpdate(LoginRequiredMixin, UpdateView):
-    pass
+    model = OwnedPlant
+    fields = ("type", "nickname", "watering_date", "adopted_since", "comments")
 
 class OwnedPlantDelete(DeleteView):
 #remove above and uncomment when log ins are set up and implemented for the super users
 # class PlantDelete(LoginRequiredMixin, DeleteView):
-    pass
+    model = OwnedPlant
+    success_url = '/plants/'
 
 # Admin and staff interactions
 
