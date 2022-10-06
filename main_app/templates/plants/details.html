@@ -32,6 +32,10 @@
                                 {{type.common_name}}
                                 {% endfor %}
                             </p>
+                            <div class="'card-action">
+                                <a href="{% url 'plant_update' plant.id %}">Edit</a>
+                                <a href="{% url 'plant_delete' plant.id %}">Delete</a>
+                            </div>
                     </div>
                     <div class="col d6">
                         {{plant.type.all.first.time_till_dry}}
