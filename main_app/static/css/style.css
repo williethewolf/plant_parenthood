@@ -218,7 +218,7 @@ nav .logo {
   background: linear-gradient(180deg, rgba(141,186,123,1) 0%, rgba(60,135,98,1) 100%);
   height: 500px;
   width: 360px;
-  margin-top: 10%;
+  margin-top: 5%;
   margin-left: auto;
   margin-right: auto;
   border-radius: 5px;
@@ -286,6 +286,37 @@ nav .logo {
   text-decoration: none;
   color: lightgrey
 
+}
+
+/* SIGNUP FORM */
+/* inherits properties from Login */
+.signupBox {
+  height: 800px;
+  width: 600px;
+}
+
+.signupForm {
+  width: 500px;
+}
+
+.signupForm h1{
+  margin: 10px 0;
+}
+
+.signupForm input[type="text"] {
+  background-color: whitesmoke;
+}
+
+.signupForm input[type="password"] {
+  background-color: whitesmoke;
+}
+
+.helptext {
+  font-size: 1rem;
+}
+
+.errorlist {
+  color: rgb(184, 70, 70);
 }
 
 /* ANIMATIONS */
