@@ -27,8 +27,11 @@ urlpatterns = [
 
 
     #class paths are passed .as_view() to render the class defaults
+#ADD PLANTS
     path ('plants/add', views.OwnedPlantAdd.as_view(), name ="plant_add"),
     path ('plants/create', views.DbPlantCreate.as_view(), name ="plant_create"),
+#UPDATE PLANTS
     path ('plants/<int:pk>/update/', views.OwnedPlantUpdate.as_view(), name="plant_update"),
+#REMOVE PLANTS
     path ('plants/<int:pk>/delete/', views.OwnedPlantDelete.as_view(), name='plant_delete'),
 ]
