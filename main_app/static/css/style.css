@@ -87,6 +87,25 @@ nav .logo {
 .parallax-container {
     height: 250px !important;
 }
+.about-img {
+  filter: drop-shadow(30px 15px 1rem #acacac);
+  width:max-content;
+  margin: auto;
+}
+.about-content {
+  height: 100%;
+  margin-left: 7rem;
+  margin-right: 7rem;
+}
+.about-green {
+  color: #1b5e20;
+  margin-left: 7rem;
+  margin-right: 7rem;
+}
+.about-head {
+  margin-left: 7rem;
+  margin-right: 7rem;
+}
 
 .home-content {
   height: 100%;
@@ -94,7 +113,6 @@ nav .logo {
   margin-left: 3rem;
   margin-right: 3rem;
 }
-
 .home-content p {
   font-size: 1.5rem;
 }
@@ -199,11 +217,15 @@ nav .logo {
   .row .col.s6 {
     width: 100%;
   }
-
+  .about-content {
+    margin-top: 15%;
+  }
   .home-content {
     margin-top: 15%;
   }
-
+  .about-img {
+    filter: none;
+  }
   .img-container img {
     filter: none;
   }
