@@ -142,7 +142,7 @@ nav .logo {
   }
   
   .main-container {
-    padding-top: 60px;
+    padding-top: 80px;
   }
 
   nav .checkbtn {
@@ -318,6 +318,20 @@ nav .logo {
 .errorlist {
   color: rgb(184, 70, 70);
 }
+
+@media (max-width : 920px) {
+
+  .signupBox {
+    width: 90%;
+    height: auto;
+  }
+  .signupForm {
+    width: 90%;
+    height: auto;
+    margin: 20px 0;
+  }
+}
+
 
 /* ANIMATIONS */
 
