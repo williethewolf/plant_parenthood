@@ -60,7 +60,7 @@
                 </div>
             </nav>
         </header>
-        <main class="main-container">
+        <main class="main-container" id="mainContainer">
             {% block content %}
             {% endblock %}
         </main>
@@ -84,14 +84,16 @@
 
             // STICKY NAVBAR
             const navbar = document.getElementById("navbar");
-
+            const mainContainer = document.getElementById("mainContainer");
             const navTop = navbar.offsetTop;
 
             function fixedNavBar() {
                 if (window.scrollY >= navTop) {
-                    navbar.classList.add("sticky")
+                    navbar.classList.add("sticky");
+                    mainContainer.classList.add("mainContainer-padding")
                 } else {
                     navbar.classList.remove("sticky");
+                    mainContainer.classList.remove("mainContainer-padding");
                 }
             }
             window.addEventListener("scroll", fixedNavBar);
