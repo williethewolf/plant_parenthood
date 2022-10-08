@@ -1,3 +1,4 @@
+from multiprocessing import current_process
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse
@@ -55,19 +56,21 @@ def signup(request):
 
 # Define the home view
 def home(request):
-  return render(request, 'home.html', {'page_name': 'Home'})
+    return render(request, 'home.html', {'page_name': 'Home'})
 
 def about(request):
-  return render(request, 'about.html', {'page_name': "About"} )
+    return render(request, 'about.html', {'page_name': "About"} )
 
  # User interaction with DB 
 def dbPlants_index(request):
  #IN THE BASE HTML, THE USER HAS TO BE CHECKED AGAINST TO ONLY SHOW BOTH PUBLIC FEED AND THE DB
-   plants = DbPlant.objects.filter(published = True)
-   return render(request, 'plants/dbindex.html', { 'page_name' : 'Plant Parenthood Plant Database', 'plants':plants} )
+    plants = DbPlant.objects.filter(published = True)
+    return render(request, 'plants/dbindex.html', { 'page_name' : 'Plant Database', 'plants':plants} )
 
 def social_plants_feed(request):
-  return HttpResponse('<h1>Plants Social feed</h1>')
+    plants = OwnedPlant.objects.filter(public = True)
+    return render(request, 'plants/social_feed.html', { 'page_name' : 'Social Feed', 'plants':plants} )
+
 
 
 def plants_index(request):
@@ -83,15 +86,20 @@ def dbplant_info(request, plant_id):
     plant = DbPlant.objects.get(id=plant_id)
     return render (request, 'plants/details.html', {'page_name':'Plant Info Sheet', 'plant': plant})
 
+#INTERACTIONS
 #I think we wrap all three interactions - watering, health and visibility under a single view called toggles or interactions.
 
-def health_toggle(request):
-    watered_plant = OwnedPlant.objects.get(id=plant_id)
-    watered_plant.healthy= not watered_plant.healthy
+def health_toggle(request, plant_id):
+    current_plant = OwnedPlant.objects.get(id=plant_id)
+    current_plant.healthy= not current_plant.healthy
+    current_plant.save(update_fields=['healthy'])
+    
 
-def visibility_toggle(request):
-    watered_plant = OwnedPlant.objects.get(id=plant_id)
-    watered_plant.public= not watered_plant.public
+def social_status_switch(request, plant_id):
+    current_plant = OwnedPlant.objects.get(id=plant_id)
+    current_plant.public = not current_plant.public
+    current_plant.save(update_fields=['public'])
+    return redirect('plants_index')
 
 def add_photo(request):
   return HttpResponse('<h1>Add a photo</h1>')
@@ -103,6 +111,7 @@ def update_watering_date(request, plant_id, today):
   watered_plant.save(update_fields=['watering_date'])
   return redirect('plant_details', plant_id=plant_id)
 
+#CLASS BASED VIEWS
 class OwnedPlantAdd(LoginRequiredMixin, CreateView):
     model = OwnedPlant
     fields= ("type", "nickname",)
@@ -140,13 +149,14 @@ class DbPlantCreate(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
     
    
+# MANAGEABLE FROM THE ADMIN PANEL - COMMENTED OUT FOR NOW
 
-class DbPlantUpdate(LoginRequiredMixin, UpdateView):
-#remove above and uncomment when log ins are set up and implemented for the super users    
-# class PlantUpdate(LoginRequiredMixin, UpdateView):
-    pass
+# class DbPlantUpdate(LoginRequiredMixin, UpdateView):
+# #remove above and uncomment when log ins are set up and implemented for the super users    
+# # class PlantUpdate(LoginRequiredMixin, UpdateView):
+#     pass
 
-class DbPlantDelete(DeleteView):
-#remove above and uncomment when log ins are set up and implemented for the super users
-# class PlantDelete(LoginRequiredMixin, DeleteView):
-    pass
+# class DbPlantDelete(DeleteView):
+# #remove above and uncomment when log ins are set up and implemented for the super users
+# # class PlantDelete(LoginRequiredMixin, DeleteView):
+#     pass
