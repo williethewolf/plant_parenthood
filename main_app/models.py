@@ -24,7 +24,7 @@ class DbPlant(models.Model):
 
 
 class OwnedPlant(models.Model):
-    type = models.ManyToManyField(DbPlant, limit_choices_to={'published': True},)
+    type = models.ForeignKey(DbPlant,  related_name='plant_type', on_delete=models.CASCADE, limit_choices_to={'published': True},)
     nickname = models.CharField(max_length=50)
     public=  models.BooleanField(default = False)
     healthy=  models.BooleanField(default = True)
