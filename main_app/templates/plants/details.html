@@ -25,12 +25,10 @@
                             </div>
                         {%else%}
                             <span class="card-title"> {{plant.nickname}} <span/>
-                            <p>type: 
-                                {% comment %} works but i think it might be super hacky
-                                I was trying to acces it as plant.type.common_name {% endcomment %}
-                                {%for type in plant.type.all%}
-                                {{type.common_name}}
-                                {% endfor %}
+                            <p>Type: 
+                                
+                                {{plant.type.common_name}}
+                                
                             </p>
                             <div class="'card-action">
                                 <a href="{% url 'plant_update' plant.id %}">Edit</a>
@@ -48,9 +46,9 @@
                         <hr>
                         <p>Last Watering: {{plant.watering_date}}</p>
                         {% today_date as today %}
-                        {%days_until plant.watering_date plant.type.all.first.time_till_dry as days_until%}
+                        {%days_until plant.watering_date plant.type.time_till_dry as days_until%}
                         {%for value in days_until|times %}
-                                        <div class="col S{{plant.type.all.first.time_till_dry}} blue lighten-5">
+                                        <div class="col S{{plant.type.time_till_dry}} blue lighten-5">
                                             💧
                                         </div>
                                         {% endfor %}
@@ -62,7 +60,7 @@
                                     <span class="red-text">Plant needs watering</span>
                                     {% endif %}
                         {% comment %} super haxxxorz as well, I don't think this is the clean way, but it works {% endcomment %}
-                        {% if days_until <= plant.type.all.first.time_till_dry %}
+                        {% if days_until <= plant.type.time_till_dry %}
                         <span><p class="blue-text">Watered</p> <form action="{% url 'update_watering_date' plant.id  today %}" method="post">
                             {% csrf_token %}
                             <button class="blue lighten-4">Water Again</button>
