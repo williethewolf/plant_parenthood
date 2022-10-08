@@ -41,9 +41,11 @@ nav ul {
 
 nav ul li {
   margin: 0 5px;
+  position: relative; 
 }
 
 nav ul li a {
+  display: block;
   color: black;
   font-weight: 500;
   padding: 8px 15px;
@@ -63,6 +65,25 @@ nav .logo {
   font-size: 2rem;
 }
 
+/* NAVBAR SUBLINKS */
+header nav ul li ul{
+  position: absolute;
+  left: 0;
+  width: 200px;
+  display: none;
+}
+
+header nav ul li ul li{
+  width: 100%;
+  border-top: 1px solid rgba(0,0,0,.1);
+  
+}
+header nav ul li:focus-within > ul,
+header nav ul li:hover > ul {
+  display: initial;
+}
+
+/* STICKY NAVBAR */
 .sticky {
   position:fixed;
   top: 0;
@@ -85,11 +106,6 @@ nav .logo {
 
 #check {
   display: none;
-}
-
-
-.parallax-container {
-    height: 250px !important;
 }
 
 .home-content {
@@ -179,7 +195,11 @@ nav .logo {
 
   nav ul li {
     width: 100%;
-    margin: 40px 0;
+    margin: 10px 0;
+  }
+
+header nav ul li ul{
+    width: 100%;
   }
 
   nav ul li a {
@@ -198,11 +218,6 @@ nav .logo {
     margin-left: 0px;
   }
 
-  /* nav ul li a.active,
-  nav ul li a:hover {
-    background: none;
-    color: #1b5e20;
-  } */
 
   .row .col.s6 {
     width: 100%;
