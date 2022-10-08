@@ -11,11 +11,16 @@ body {
 
 main {
   flex-grow: 1;
+  margin: 0 3rem;
 }
 
 footer {
   padding-top: 0;
   text-align: right;
+}
+
+a {
+  color: black;
 }
 
 /* NAVIGATION */
@@ -184,9 +189,6 @@ header nav ul li:hover > ul {
     font-size: 3rem;
   }
   
-  .main-container {
-    /* padding-top: 80px; */
-  }
 
   nav .checkbtn {
     display: block;
@@ -382,7 +384,31 @@ header nav ul li ul{
   }
 }
 
+/* PLANT DB INDEX */
 
+.card .card-image .card-title {
+  font-size: 2rem;
+  font-weight: 500;
+  text-shadow: 2px 3px 6px #828282
+}
+
+.card.horizontal .card-stacked .card-content div {
+  margin-bottom:20px;
+}
+
+.card-field {
+  font-weight: 600;
+}
+
+@media (max-width: 765px) {
+  .card.horizontal .card-image {
+    max-width: 100%;
+
+  }
+  .card.horizontal .card-stacked {
+    display: none;
+  }
+}
 /* ANIMATIONS */
 
 .fadeIn {

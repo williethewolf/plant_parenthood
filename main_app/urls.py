@@ -21,10 +21,15 @@ urlpatterns = [
 # DETAILS
     path ('plants/<int:plant_id>', views.plant_details, name = "plant_details"),
     path ('plantsdb/<int:plant_id>', views.dbplant_info, name = "plantdb_info"),
-
+#INTERACTIONS
 #water plants
     path ('plants/<int:plant_id>/update_watering_date/<date:today>', views.update_watering_date, name = 'update_watering_date'),
 
+#make public on the social feed
+    path  ('plants/<int:plant_id>/social_status_switch', views.social_status_switch, name = 'social_status_switch'),
+
+#make public on the social feed
+    path  ('plants/<int:plant_id>/health_toggle', views.health_toggle, name = 'health_toggle'),
 
     #class paths are passed .as_view() to render the class defaults
 #ADD PLANTS
