@@ -4,32 +4,33 @@
 
 {% block content %}
     <h1>{{page_name}}</h1>
-    <div class="row">
     {% for plant in plants %}
-        <div class="col s3">
-            <a href ="/plantsdb/{{ plant.id }}">
-                <div class="card">
-                    <div class = "card-content">
-                        <div class="row">
-                            <img src="{% static "/imgs/plants/db-use/devils_ivy.png"%}" style="width: 100%";>
-                            <div>                                
-                                <span class="card-title"> {{plant.common_name}} <span/>
-                                    <h6><i>{{plant.botanical_name}}</i></h6>
-                                <div>
-                                    <p>Description:</p>
-                                    <p> {{plant.description}}</p>
-                                </div>
-                                <div>
-                                    <p>Watering needs:</p> 
-                                    <p>Every {{plant.time_till_dry}} days or moist soil</p>                                
-                                </div>
-                            </div>
+    <div class="col s12 m7">
+        <a href ="/plantsdb/{{ plant.id }}">
+            <div class="card horizontal">
+                <div class="card-image">
+                    <img src="{% static "/imgs/plants/db-use/devils_ivy.png"%}" alt="{{plant.common_name}} image";>
+                    <span class="card-title"> {{plant.common_name}} <span/>
+                </div>
+                <div class="card-stacked">
+                    <div class="card-content">
+                        <div>
+                            <span class="card-field">Botanical name: </span>
+                            <p><i>{{plant.botanical_name}}</i></p>
+                        </div>
+                        <div>
+                            <span class="card-field">Description:</span>
+                            <p>{{plant.description}}</p>
+                        </div>
+                        <div>
+                            <span class="card-field">Watering needs:</span> 
+                            <p>Every {{plant.time_till_dry}} days or moist soil</p>
                         </div>
                     </div>
                 </div>
-            </a>
-        </div> 
-    </div>     
+            </div>
+        </a>
+    </div>  
 
     {% endfor %}
 {% endblock %}
