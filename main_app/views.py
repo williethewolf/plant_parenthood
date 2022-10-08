@@ -1,3 +1,4 @@
+from multiprocessing import current_process
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse
@@ -85,13 +86,17 @@ def dbplant_info(request, plant_id):
 
 #I think we wrap all three interactions - watering, health and visibility under a single view called toggles or interactions.
 
-def health_toggle(request):
-    watered_plant = OwnedPlant.objects.get(id=plant_id)
-    watered_plant.healthy= not watered_plant.healthy
+def health_toggle(request, plant_id):
+    current_plant = OwnedPlant.objects.get(id=plant_id)
+    current_plant.healthy= not current_plant.healthy
+    current_plant.save(update_fields=['healthy'])
+    
 
-def visibility_toggle(request):
-    watered_plant = OwnedPlant.objects.get(id=plant_id)
-    watered_plant.public= not watered_plant.public
+def social_status_switch(request, plant_id):
+    current_plant = OwnedPlant.objects.get(id=plant_id)
+    current_plant.public = not current_plant.public
+    current_plant.save(update_fields=['public'])
+    return redirect('plants_index')
 
 def add_photo(request):
   return HttpResponse('<h1>Add a photo</h1>')
@@ -102,6 +107,7 @@ def update_watering_date(request, plant_id, today):
 
   watered_plant.save(update_fields=['watering_date'])
   return redirect('plant_details', plant_id=plant_id)
+
 
 class OwnedPlantAdd(LoginRequiredMixin, CreateView):
     model = OwnedPlant

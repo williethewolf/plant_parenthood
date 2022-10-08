@@ -25,6 +25,9 @@ urlpatterns = [
 #water plants
     path ('plants/<int:plant_id>/update_watering_date/<date:today>', views.update_watering_date, name = 'update_watering_date'),
 
+#make public on the social feed
+    path  ('plants/<int:plant_id>/social_status_switch', views.social_status_switch, name = 'social_status_switch'),
+
 
     #class paths are passed .as_view() to render the class defaults
 #ADD PLANTS

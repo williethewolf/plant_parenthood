@@ -61,7 +61,8 @@
                                     {% endif %}
                         {% comment %} super haxxxorz as well, I don't think this is the clean way, but it works {% endcomment %}
                         {% if days_until <= plant.type.time_till_dry %}
-                        <span><p class="blue-text">Watered</p> <form action="{% url 'update_watering_date' plant.id  today %}" method="post">
+                        <span><p class="blue-text">Watered</p> 
+                        <form action="{% url 'update_watering_date' plant.id  today %}" method="post">
                             {% csrf_token %}
                             <button class="blue lighten-4">Water Again</button>
                         </form></span>
