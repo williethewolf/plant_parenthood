@@ -119,7 +119,6 @@ header nav ul li:hover > ul {
   margin-left: 3rem;
   margin-right: 3rem;
 }
-
 .home-content p {
   font-size: 1.5rem;
 }
@@ -224,11 +223,16 @@ header nav ul li ul{
   .row .col.s6 {
     width: 100%;
   }
-
+  .about-content {
+    margin-top: 15%;
+  }
   .home-content {
     margin-top: 15%;
   }
-
+  .about-img {
+    filter: none;
+    width: max-content;
+  }
   .img-container img {
     filter: none;
   }
@@ -428,4 +432,56 @@ header nav ul li ul{
     -webkit-transform: none;
     transform: none;
   }
+}
+
+/* About Page */
+
+.about-table {
+  width: 80%;
+  margin: auto;
+  margin-top: 2%;
+}
+.table-break {
+  margin-top: 5%;
+}
+.about-img {
+  display: flex;
+  justify-content: center;
+  filter: drop-shadow(30px 15px 1rem #acacac);
+}
+.about-green {
+  background-color: #1b5e20;
+  color: white;
+  text-align: center;
+}
+.about-head {
+  text-align: center;
+  margin: auto;
+  filter: drop-shadow(30px 15px 1rem #acacac);
+}
+.names {
+  width: 100%;
+}
+.team {
+  width: 100%;
+  margin-top: 0;
+  padding-top: 0;
+}
+.about-text {
+  font-family: 'Inter', sans-serif;
+  font-size:larger;
+  margin: 10px
+}
+.profiles {
+  text-decoration: none;
+  color: #1b5e20;
+}
+.social-logo {
+  width: 40px;
+}
+.dev-info {
+  width: 33%; 
+}
+.dev-name, .dev-info {
+  text-align: center;
 }
