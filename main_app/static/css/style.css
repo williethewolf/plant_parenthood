@@ -364,7 +364,7 @@ header nav ul li ul{
 /* PLANT DB INDEX */
 
 .card .card-image .card-title {
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: 500;
   text-shadow: 2px 3px 6px #828282
 }
@@ -386,6 +386,24 @@ header nav ul li ul{
     display: none;
   }
 }
+
+/* MY OWNED PLANTS INDEX */
+
+.card .card-content .waterdrop {
+  display: flex;
+}
+.card .card-content .waterdrop div {
+  margin: 0 .25rem;
+}
+@media only screen and (min-width: 993px) {
+  .row .col.l4 {
+    width: 33.3333333333%;
+    margin-left: auto;
+    left: auto;
+    right: auto;
+  }
+}
+
 /* ANIMATIONS */
 
 .fadeIn {
