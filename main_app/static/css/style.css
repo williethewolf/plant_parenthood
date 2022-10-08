@@ -373,12 +373,12 @@ header nav ul li ul{
   font-weight: 600;
 }
 
-@media (max-width: 920px) {
-  .card-image {
+@media (max-width: 765px) {
+  .card.horizontal .card-image {
     max-width: 100%;
 
   }
-  .card-stacked {
+  .card.horizontal .card-stacked {
     display: none;
   }
 }
