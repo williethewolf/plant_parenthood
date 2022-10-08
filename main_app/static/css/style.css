@@ -108,30 +108,6 @@ header nav ul li:hover > ul {
   display: none;
 }
 
-
-.parallax-container {
-    height: 250px !important;
-}
-.about-img {
-  filter: drop-shadow(30px 15px 1rem #acacac);
-  width:max-content;
-  margin: auto;
-}
-.about-content {
-  height: 100%;
-  margin-left: 7rem;
-  margin-right: 7rem;
-}
-.about-green {
-  color: #1b5e20;
-  margin-left: 7rem;
-  margin-right: 7rem;
-}
-.about-head {
-  margin-left: 7rem;
-  margin-right: 7rem;
-}
-
 .home-content {
   height: 100%;
   margin-top: 25%;
