@@ -35,45 +35,88 @@
                                 <a href="{% url 'plant_delete' plant.id %}">Delete</a>
                             </div>
                     </div>
-                    <div class="col d6">
-                        {{plant.type.all.first.time_till_dry}}
-                        <span>Comments:</span>
-                        {%if comments %}
-                        <p>{{plant.comments}}</p>
-                        {% else %}
-                        <p>No comments yet. Edit the card to input</p>
-                        {% endif %}
+                    <div class = "col s6">
+                        <div class="row">
+                            <div class="col s6">
+                                <span>Comments:</span>
+                                {%if plant.comments %}
+                                <p class="card horizontal">{{plant.comments}}</p>
+                                {% else %}
+                                <p>No comments yet. Edit the card to input</p>
+                                {% endif %}
+                                <hr>
+                                <p>Last Watering: {{plant.watering_date}}</p>
+                                {% today_date as today %}
+                                {%days_until plant.watering_date plant.type.time_till_dry as days_until%}
+                                {%for value in days_until|times %}
+                                                <div class="col S{{plant.type.time_till_dry}} blue lighten-5">
+                                                    💧
+                                                </div>
+                                                {% endfor %}
+                                            
+                            </div>
+                            <div class="col s6">
+                                            {% if days_until >= 0 %}
+                                            <span class="green-text">Plant is happy and still watered</span>
+                                            {% else %}
+                                            <span class="red-text">Plant needs watering</span>
+                                            {% endif %}
+                                
+                                {% if days_until <= plant.type.time_till_dry %}
+                                <span><p class="blue-text">Watered</p> 
+                                <form action="{% url 'update_watering_date' plant.id  today %}" method="post">
+                                    {% csrf_token %}
+                                    <button class="blue lighten-4">Water Again</button>
+                                </form></span>
+                                {% else %}               
+                                <span><p class="red-text">Needs Water</p>
+                                    <form action="{% url 'update_watering_date' plant.id  today %}" method="post">
+                                        {% csrf_token %}
+                                        <button class="blue lighten-1">Water</button>
+                                    </form></span>
+                                {% endif %}
+                            </div>
+                        </div>
                         <hr>
-                        <p>Last Watering: {{plant.watering_date}}</p>
-                        {% today_date as today %}
-                        {%days_until plant.watering_date plant.type.time_till_dry as days_until%}
-                        {%for value in days_until|times %}
-                                        <div class="col S{{plant.type.time_till_dry}} blue lighten-5">
-                                            💧
-                                        </div>
-                                        {% endfor %}
-                                    
-                                    </div>
-                                    {% if days_until >= 0 %}
-                                    <span class="green-text">Plant is happy and still watered</span>
-                                    {% else %}
-                                    <span class="red-text">Plant needs watering</span>
-                                    {% endif %}
-                        {% comment %} super haxxxorz as well, I don't think this is the clean way, but it works {% endcomment %}
-                        {% if days_until <= plant.type.time_till_dry %}
-                        <span><p class="blue-text">Watered</p> 
-                        <form action="{% url 'update_watering_date' plant.id  today %}" method="post">
-                            {% csrf_token %}
-                            <button class="blue lighten-4">Water Again</button>
-                        </form></span>
-                        {% else %}               
-                        <span><p class="red-text">Needs Water</p>
-                            <form action="{% url 'update_watering_date' plant.id  today %}" method="post">
-                                {% csrf_token %}
-                                <button class="blue lighten-1">Water</button>
-                            </form></span>
-                        {% endif %}
+                        <div class="row">
+                            <div class="col s6">
+                                <div>
+                                    <form action="{% url 'health_toggle' plant.id %}" method="post">
+                                        {% csrf_token %}
+                                        <p>
+                                            <label onclick="this.form.submit()">
+                                                {% if plant.healthy %}
+                                                <input type="checkbox" checked="checked" />
+                                                {% else %}
+                                                <input type="checkbox" />
+                                                {% endif %}
+                                                <span>This palant is healthy</span>
+                                            </label>
+                                        </p>
+                                    </form>
+                                </div>         
+                            </div>
+                            <div class="col s6">
+                                <div class="right">
+                                    <form action="{% url 'social_status_switch' plant.id %}" method="post">
+                                        {% csrf_token %}
+                                        <p>
+                                            <label onclick="this.form.submit()">
+                                                {% if plant.public %}
+                                                <input type="checkbox" checked="checked" />
+                                                {% else %}
+                                                <input type="checkbox" />
+                                                {% endif %}
+                                                <span>Share on Public feed</span>
+                                            </label>
+                                        </p>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                </div>
+                    
                 </div>
             </div>
         </div>

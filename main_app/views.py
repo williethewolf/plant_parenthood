@@ -93,13 +93,14 @@ def health_toggle(request, plant_id):
     current_plant = OwnedPlant.objects.get(id=plant_id)
     current_plant.healthy= not current_plant.healthy
     current_plant.save(update_fields=['healthy'])
+    return redirect(request.META['HTTP_REFERER'])
     
 
 def social_status_switch(request, plant_id):
     current_plant = OwnedPlant.objects.get(id=plant_id)
     current_plant.public = not current_plant.public
     current_plant.save(update_fields=['public'])
-    return redirect('plants_index')
+    return redirect(request.META['HTTP_REFERER'])
 
 def add_photo(request):
   return HttpResponse('<h1>Add a photo</h1>')
