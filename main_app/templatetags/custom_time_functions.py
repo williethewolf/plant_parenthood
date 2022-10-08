@@ -13,7 +13,7 @@ def days_until(date, watertime):
 
 @register.simple_tag
 def today_date():
-     return timezone.now().date()
+     return timezone.localtime(timezone.now()).date()
 
 @register.filter(name='times') 
 def times(number):

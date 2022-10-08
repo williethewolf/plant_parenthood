@@ -13,7 +13,7 @@
                         <div class="col S6">
                             <img src="{% static "/imgs/plants/db-use/devils_ivy.png"%}" style="width: 100%";>
                             <span class="card-title"> <h2>{{plant.nickname}}</h2> <span/>
-                            <p>Type: {{plant.type.all.first.common_name}}</p>
+                            <p>Type: {{plant.type.common_name}}</p>
                         </div>
                         <div class="col S6">
                             <p>
@@ -22,9 +22,9 @@
                             
                                 <div>
                                     <div class="row">
-                                        {%days_until plant.watering_date plant.type.all.first.time_till_dry as days_until%}
+                                        {%days_until plant.watering_date plant.type.time_till_dry as days_until%}
                                         {%for value in days_until|times %}
-                                        <div class="col S{{plant.type.all.first.time_till_dry}} blue lighten-5">
+                                        <div class="col S{{plant.type.time_till_dry}} blue lighten-5">
                                             💧
                                         </div>
                                         {% endfor %}
