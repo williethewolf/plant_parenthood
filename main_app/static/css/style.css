@@ -491,4 +491,7 @@ header nav ul li ul{
 .dropdown{
   z-index: 10000;
   background-color: white;
+  box-shadow: 7px 2px 5px -5px rgba(0,0,0,0.4);
+  -webkit-box-shadow: 7px 2px 5px -5px rgba(0,0,0,0.4);
+  -moz-box-shadow: 7px 2px 5px -5px rgba(0,0,0,0.4);;
 }
