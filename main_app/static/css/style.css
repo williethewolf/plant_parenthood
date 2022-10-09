@@ -380,6 +380,10 @@ header nav ul li ul{
   font-weight: 600;
 }
 
+.align {
+  text-align: right;
+}
+
 @media (max-width: 765px) {
   .card.horizontal .card-image {
     max-width: 100%;
@@ -387,6 +391,10 @@ header nav ul li ul{
   }
   .card.horizontal .card-stacked {
     display: none;
+  }
+  
+  .align {
+    text-align: center;
   }
 }
 
