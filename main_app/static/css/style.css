@@ -485,3 +485,10 @@ header nav ul li ul{
 .dev-name, .dev-info {
   text-align: center;
 }
+
+/* temp fix for dropdowns */
+
+.dropdown{
+  z-index: 10000;
+  background-color: white;
+}
