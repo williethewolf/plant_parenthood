@@ -31,7 +31,7 @@
                     {% if user.is_authenticated %}
                     <li>
                         <a href="#!">Add<i class="material-icons right">arrow_drop_down</i></a>
-                        <ul>
+                        <ul class="dropdown">
                             <li><a href="{% url 'plant_add' %}">Add a plant</a></li>
                             {% if request.user.is_active and request.user.is_staff %}
                             <li><a href="{% url 'plant_create' %}">Create Plant in DB</a></li>
@@ -40,7 +40,7 @@
                     </li>
                     <li>
                         <a href="#!">Plants<i class="material-icons right">arrow_drop_down</i></a>
-                        <ul>
+                        <ul class="dropdown">
                             <li><a href="{% url 'plants_index' %}">My plants</a></li>
                             <li><a href="{% url 'plantsDB_index' %}">Plants DB</a></li>
                         </ul>
