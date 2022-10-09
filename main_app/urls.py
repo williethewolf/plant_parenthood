@@ -39,4 +39,6 @@ urlpatterns = [
     path ('plants/<int:pk>/update/', views.OwnedPlantUpdate.as_view(), name="plant_update"),
 #REMOVE PLANTS
     path ('plants/<int:pk>/delete/', views.OwnedPlantDelete.as_view(), name='plant_delete'),
+# UPLOAD PHOTO
+    path('plants/<int:plant_id>/add_photo/', views.add_photo, name='add_photo'),
 ]
