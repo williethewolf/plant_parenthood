@@ -8,7 +8,11 @@
     <div class="col s12 m7">
             <div class="card horizontal">
                 <div class="card-image">
+                    {% if plant.photo_set.first %}
+                    <img src="{{ plant.photo_set.first.url }}" alt="{{ plant.name }}">
+                    {% else %}
                     <img src="{% static "/imgs/plants/db-use/devils_ivy.png"%}" alt="{{plant.common_name}} image";>
+                    {% endif %}
                     <span class="card-title"> {{plant.nickname}} <span/>
                 </div>
                 <div class="card-stacked">

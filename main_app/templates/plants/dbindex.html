@@ -9,7 +9,12 @@
         <a href ="/plantsdb/{{ plant.id }}">
             <div class="card horizontal">
                 <div class="card-image">
+                    {% if plant.dbphoto_set.first %}
                     <img src="{{ plant.dbphoto_set.first.url }}" alt="{{ plant.name }}">
+                    {% else %}
+                    <img src="{% static "/imgs/plants/db-use/admin.png"%}" style="width: 100%";>
+                    <p>Awaiting admin photo upload</p>
+                    {% endif %}
                     <span class="card-title"> {{plant.common_name}} <span/>
                 </div>
                 <div class="card-stacked">
@@ -30,21 +35,6 @@
                 </div>
             </div>
         </a>
-        {% for photo in plant.dbphoto_set.all %}
-            <img src="{{ photo.url }}" alt="{{ plant.name }}" class="card-panel img-responsive" />
-        {% empty %}
-            <div class="card-panel teal-text">No Photos Uploaded Yet</div>    
-        {% endfor %}
-        <form
-        action="{% url 'add_photo' plant.id %}"
-        method="POST"
-        class="card-panel"
-        enctype="multipart/form-data"
-        >
-        {% csrf_token %}
-        <input type="file" name="photo-file" />
-        <input type="submit" value="Add Photo" />
-        </form>
     </div>  
 
     {% endfor %}
