@@ -8,7 +8,45 @@
         <div class="card-content">
             <div class="row">
                 <div class="col s6">
+                    {%if plant.botanical_name%}
+                    <div class="carousel carousel-slider">
+                    {% for photo in plant.dbphoto_set.all %}
+                    <a class="carousel-item"> <img src="{{ photo.url }}" alt="{{ plant.name }}" /></a>
+                    {% empty %}
                     <img src="{% static "/imgs/plants/db-use/devils_ivy.png"%}" style="width: 100%";>
+                    {% endfor %}
+                    </div>
+                    {%else%}
+                        <div class="row">
+                        <div class="carousel carousel-slider">
+                        {% for photo in plant.photo_set.all %}
+                        <a class="carousel-item"> <img src="{{ photo.url }}" alt="{{ plant.name }}" /></a>
+                        {% empty %}
+                            {% for photo in plant.type.dbphoto_set.all%}
+                                <img src="{{ photo.url }}" alt="{{ plant.name }}"/>
+                            {% empty %}
+                            <div class="card-panel teal-text">No Photos Uploaded Yet</div>
+                            {% endfor %}    
+                        {% endfor %}
+                        </div>
+                        {% comment %} <img src="{% static "/imgs/plants/db-use/devils_ivy.png"%}" style="width: 100%";> {% endcomment %}
+                        </div>
+                    {% endif %}
+                    {%if plant.botanical_name%}
+                    {% else %}
+                    <div class="row">
+                        <form
+                        action="{% url 'add_photo' plant.id %}"
+                        method="POST"
+                        class="card-panel"
+                        enctype="multipart/form-data"
+                        >
+                        {% csrf_token %}
+                        <input type="file" name="photo-file" />
+                        <input type="submit" value="Add Photo" />
+                        </form>
+                    </div>
+                    {% endif %}
                 </div>
                 <div class="col s6">
                     {%if plant.botanical_name%}                 
@@ -114,7 +152,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>            
         </div>
     </div>
 {% endif %}      

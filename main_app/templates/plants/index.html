@@ -11,7 +11,7 @@
                 <a href ="/plants/{{ plant.id }}">
                     <div class="card">
                         <div class="card-image">
-                            <img src="{% static "/imgs/plants/db-use/devils_ivy.png"%}" style="width: 100%";>
+                            <img src="{{ plant.photo_set.first.url }}" alt="{{ plant.name }}">
                             <span class="card-title">{{plant.nickname}}<span/>
                             <!-- <p>Type: {{plant.type.common_name}}</p> -->
                         </div>

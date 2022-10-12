@@ -41,4 +41,5 @@ urlpatterns = [
     path ('plants/<int:pk>/delete/', views.OwnedPlantDelete.as_view(), name='plant_delete'),
 # UPLOAD PHOTO
     path('plants/<int:plant_id>/add_photo/', views.add_photo, name='add_photo'),
+    path('plantsdb/<int:plant_id>/add_photo/', views.add_photo, name='add_photo'),
 ]

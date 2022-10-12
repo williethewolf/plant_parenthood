@@ -14,10 +14,11 @@ from pathlib import Path
 
 import environ
 env = environ.Env()
-environ.Env.read_env()
+BASE_DIR = Path(__file__).resolve().parent.parent
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+
 ACCESS_KEY = env('AWS_ACCESS_KEY_ID')
 ACCESS_ID = env('AWS_SECRET_ACCESS_KEY')
 

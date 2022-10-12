@@ -9,7 +9,7 @@
         <a href ="/plantsdb/{{ plant.id }}">
             <div class="card horizontal">
                 <div class="card-image">
-                    <img src="{% static "/imgs/plants/db-use/devils_ivy.png"%}" alt="{{plant.common_name}} image">
+                    <img src="{{ plant.dbphoto_set.first.url }}" alt="{{ plant.name }}">
                     <span class="card-title"> {{plant.common_name}} <span/>
                 </div>
                 <div class="card-stacked">
@@ -30,7 +30,7 @@
                 </div>
             </div>
         </a>
-        {% for photo in plant.photo_set.all %}
+        {% for photo in plant.dbphoto_set.all %}
             <img src="{{ photo.url }}" alt="{{ plant.name }}" class="card-panel img-responsive" />
         {% empty %}
             <div class="card-panel teal-text">No Photos Uploaded Yet</div>    
