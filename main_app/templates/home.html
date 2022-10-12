@@ -6,7 +6,9 @@
         <div class="home-content">
             <span class="app-title">PLANT PARENTHOOD</span>
             <p class="flow-text">Our aim is to inspire and provide you the training and knowledge you need to be a proud plant parent</p>
+            {% if not user.is_authenticated %}
             <a href="{% url 'signup' %}" class="btn green darken-4 signup">Signup</a>
+            {% endif %}
         </div>
     </div>
     <div class="col s6 img-container fadeIn">
