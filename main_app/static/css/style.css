@@ -526,10 +526,6 @@ header nav ul li ul{
   font-size:larger;
   margin: 10px
 }
-.profiles {
-  text-decoration: none;
-  color: #1b5e20;
-}
 .social-logo {
   width: 40px;
 }
@@ -538,6 +534,7 @@ header nav ul li ul{
 }
 .dev-name, .dev-info {
   text-align: center;
+  color: #1b5e20;
 }
 
 /* temp fix for dropdowns */
