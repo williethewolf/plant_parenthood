@@ -44,7 +44,16 @@ class OwnedPlant(models.Model):
 
 class Photo(models.Model):
     url = models.CharField(max_length=200)
-    cat = models.ForeignKey(OwnedPlant, on_delete=models.CASCADE)
+    plant = models.ForeignKey(OwnedPlant, on_delete=models.CASCADE)
+   
+
+    def __str__(self):
+        return f'Photo for plant_id: {self.plant_id} @{self.url}'
+
+class DbPhoto(models.Model):
+    url = models.CharField(max_length=200)
+    plant = models.ForeignKey(DbPlant, on_delete=models.CASCADE)
+   
 
     def __str__(self):
         return f'Photo for plant_id: {self.plant_id} @{self.url}'
