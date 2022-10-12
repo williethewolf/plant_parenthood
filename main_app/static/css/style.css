@@ -1,56 +1,551 @@
 /* logo font import, change to your taste, Leo  and remove if not used*/
 @import url('https://fonts.googleapis.com/css2?family=Rozha+One&family=Short+Stack&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap');
 
 body {
-    display: flex;
-    min-height: 100vh;
-    flex-direction: column;
-  }
-  
-  main {
-    flex: 1 0 auto;
-  }
-  
-  footer {
-    padding-top: 0;
-    text-align: right;
-  }
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  font-family: 'Inter', serif;
+}
 
+main {
+  flex-grow: 1;
+  margin: 0 3rem;
+}
+
+footer {
+  padding-top: 0;
+  text-align: right;
+}
+
+a {
+  color: black;
+}
+
+/* NAVIGATION */
+nav {
+  padding: 0 1rem;
+  box-shadow: none;
+  display: flex;
+  height: 80px;
+  width: 100%;
+  background: white;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 50px 0 4rem;
+  flex-wrap: wrap;
+
+}
+
+nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+}
+
+nav ul li {
+  margin: 0 5px;
+  position: relative; 
+}
+
+nav ul li a {
+  display: block;
+  color: black;
+  font-weight: 500;
+  padding: 8px 15px;
+  letter-spacing: .5px;
+  transition: all .5s ease;
+  text-transform: uppercase;
+}
+
+nav label .fas {
+  line-height: 2;
+}
+
+nav .logo {
+  font-weight: 700;
+  color: black;
+  text-transform: uppercase;
+  font-size: 2rem;
+}
+
+/* NAVBAR SUBLINKS */
+header nav ul li ul{
+  position: absolute;
+  left: 0;
+  width: 200px;
+  display: none;
+}
+
+header nav ul li ul li{
+  width: 100%;
+  border-top: 1px solid rgba(0,0,0,.1);
+  
+}
+header nav ul li:focus-within > ul,
+header nav ul li:hover > ul {
+  display: initial;
+}
+
+/* STICKY NAVBAR */
+.sticky {
+  position:fixed;
+  top: 0;
+  width: 100%;
+  z-index: 9;
+}
+
+.mainContainer-padding {
+  padding-top:80px;
+}
+
+.checkbtn {
+  font-size: 2rem;
+  color: #1b5e20;
+  float: right;
+  margin-right: 40px;
+  cursor: pointer;
+  display: none;
+}
+
+#check {
+  display: none;
+}
+
+.home-content {
+  height: 100%;
+  margin-top: 25%;
+  margin-left: 3rem;
+  margin-right: 3rem;
+}
+.home-content p {
+  font-size: 1.5rem;
+}
+.signup {
+  font-weight: 600;
+}
+
+.app-title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 4rem;
+}
+
+.img-container img {
+  margin-top: 6rem;
+  filter: drop-shadow(30px 15px 1rem #acacac);
+  max-width: 100%;
+  height:auto;
+}
+.footer-copyright {
+  color: black;
+}
+
+.footer-copyright .container {
+  margin-right: 0;
+}
+
+.bold-green {
+  font-weight: 600;
+  color: #1b5e20 ;
+}
+
+/* RESPONSIVE NAVBAR */
+
+@media (max-width : 1000px) {
   nav {
-    padding: 0 1rem;
+    padding: 0 40px 0 50px;
+  }
 }
 
-/* logo font implementation, change to your taste, Leo. Don't forget to import */
-.brand-logo{
-    font-family:  'Rozha One', serif;
-}
+@media (max-width : 920px) {
 
-.parallax-container {
-    height: 250px !important;
-}
+  .app-title {
+    font-size: 3rem;
+  }
+  
 
-.sticky-navbar{
+  nav .checkbtn {
+    display: block;
+    margin-right: 0;
+  }
+
+  #check:checked ~ .check-btn i:before {
+    content: "\f0c9";
+  }
+
+  nav ul {
     position: fixed;
-    left: 0;
-    top: 0;
+    top: 80px;
+    left: -100%;
+    background:#c8e6c9;
+    height: 100vh;
     width: 100%;
-    padding: 10px 0;
-    z-index: 999;
-}
-/* Only valid for the current photo on the hero slider, but might be convenient to have them here to adjust other photos */
-.slider .slides li img{
-    height: 120% !important;
-    background-position: bottom !important;
-}
+    text-align: center;
+    display: block;
+    transition: all 0.3s ease;
+    z-index: 9;
+  }
 
-/* temp fic for carousel container */
-.main-container {
-    margin: 0 auto;
-    max-width: 1600px;
+  .hide {
+    display: none;
+  }
+
+  #check:checked ~ ul {
+    left: 0;
+    position:absolute;
+  }
+
+  nav ul li {
+    width: 100%;
+    margin: 10px 0;
+  }
+
+header nav ul li ul{
     width: 100%;
   }
 
-.car-card{
-width: 400px !important;
+  nav ul li a {
+    width: 100%;
+    margin-left: -100%;
+    display: block;
+    font-size: 20px;
+    transition: 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+
+  nav ul li a:hover {
+    color:white;
+  }
+
+  #check:checked ~ ul li a {
+    margin-left: 0px;
+  }
+
+
+  .row .col.s6 {
+    width: 100%;
+  }
+  .about-content {
+    margin-top: 15%;
+  }
+  .home-content {
+    margin-top: 15%;
+  }
+  .about-img {
+    filter: none;
+    width: max-content;
+  }
+  .img-container img {
+    filter: none;
+  }
 }
 
+/* LOGIN FORM */
+
+.loginbox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(180deg, rgba(141,186,123,1) 0%, rgba(60,135,98,1) 100%);
+  height: 500px;
+  width: 360px;
+  margin-top: 5%;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 5px;
+  overflow: hidden;
+  transition: all .5 ease;
+
+}
+.login-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 350px;
+  background: transparent;
+}
+
+.login-form i {
+  display: flex;
+  justify-content: center;
+  color: white;
+  font-size: 3rem
+}
+
+.login-form h1 {
+  font-size: 2rem;
+  text-align: center;
+  text-transform: uppercase;
+  margin: 40px 0;
+  color: white;
+  font-weight: 600;
+
+}
+
+.login-form p {
+  font-size: 20px;
+  margin: 15px 0;
+
+}
+
+.login-form label {
+  font-size: 1.5rem;
+  color: white;
+  font-weight: 600;
+}
+
+.login-form input {
+  font-size: 1.5rem;
+  width: 100%;
+  padding: 15px 10px;
+  border: 0;
+  outline: none;
+  border-radius: 5px;
+
+}
+
+.login-form .btn {
+  font-weight: 600;
+  margin: 20px 0;
+  padding: 0;
+  border-radius: 5px;
+
+}
+
+.login-form a {
+  text-decoration: none;
+  color: lightgrey
+
+}
+
+/* SIGNUP FORM */
+/* inherits properties from Login */
+.signupBox {
+  height: 800px;
+  width: 600px;
+}
+
+.signupForm {
+  width: 500px;
+}
+
+.signupForm h1{
+  margin: 10px 0;
+}
+
+.signupForm input[type="text"] {
+  background-color: whitesmoke;
+}
+
+.signupForm input[type="password"] {
+  background-color: whitesmoke;
+}
+
+.helptext {
+  font-size: 1rem;
+}
+
+.errorlist {
+  color: rgb(184, 70, 70);
+}
+
+@media (max-width : 920px) {
+
+  .signupBox {
+    width: 90%;
+    height: auto;
+  }
+  .signupForm {
+    width: 90%;
+    height: auto;
+    margin: 20px 0;
+  }
+}
+
+/* PLANT DB INDEX */
+
+.card .card-image .card-title {
+  font-size: 2.5rem;
+  font-weight: 500;
+  text-shadow: 2px 3px 6px #828282
+}
+
+.card.horizontal .card-stacked .card-content div {
+  margin-bottom:20px;
+}
+
+.card-field {
+  font-weight: 600;
+}
+
+.align {
+  text-align: right;
+}
+
+@media (max-width: 765px) {
+  .card.horizontal .card-image {
+    max-width: 100%;
+
+  }
+  .card.horizontal .card-stacked {
+    display: none;
+  }
+
+  .align {
+    text-align: center;
+  }
+}
+
+/* MY OWNED PLANTS INDEX */
+
+.card .card-content .waterdrop {
+  display: flex;
+}
+.card .card-content .waterdrop div {
+  margin: 0 .25rem;
+}
+@media only screen and (min-width: 993px) {
+  .row .col.l4 {
+    width: 33.3333333333%;
+    margin-left: auto;
+    left: auto;
+    right: auto;
+  }
+}
+
+/* ADD PLANT FORM */
+/* Inherits style from Login & Signup */
+
+.addPlantBox {
+  height: auto;
+  width: 600px;
+}
+
+.addPlantForm {
+  width: 500px;
+  margin: 4rem 0;
+}
+
+.addPlantForm h1{
+  margin: 10px 0;
+}
+
+@media (max-width : 719px) {
+
+  .addPlantBox {
+    width: 90%;
+    height: auto;
+  }
+  .addPlantForm {
+    width: 90%;
+    height: auto;
+    margin: 20px 0;
+  }
+
+  .addPlantForm h1 {
+    font-size: 1.25rem;
+  }
+
+  .addPlantForm label {
+    font-size: 1rem;
+  }
+
+  .addPlantForm .btn {
+    font-size: 1.25rem;
+  }
+}
+
+
+/* ANIMATIONS */
+
+.fadeIn {
+  animation: fadeIn;
+  animation-duration: 4s;
+}
+@keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+.fadeInDown {
+  animation-name: fadeInDown;
+  animation-duration: 1s;
+  animation-fill-mode: both;
+}
+
+@keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+  }
+}
+
+/* About Page */
+
+.about-table {
+  width: 85%;
+  margin: auto;
+  margin-top: 2%;
+}
+.table-break {
+  margin-top: 5%;
+}
+.about-img {
+  display: flex;
+  justify-content: center;
+  filter: drop-shadow(30px 15px 1rem #acacac);
+}
+.about-green {
+  background-color: #1b5e20;
+  color: white;
+  text-align: center;
+}
+.about-head {
+  text-align: center;
+  margin: auto;
+  filter: drop-shadow(30px 15px 1rem #acacac);
+}
+.names {
+  width: 100%;
+}
+.team {
+  width: 100%;
+  margin-top: 0;
+  padding-top: 0;
+}
+.about-text {
+  font-family: 'Inter', sans-serif;
+  font-size:larger;
+  margin: 10px
+}
+.profiles {
+  text-decoration: none;
+  color: #1b5e20;
+}
+.social-logo {
+  width: 40px;
+}
+.dev-info {
+  width: 33%; 
+}
+.dev-name, .dev-info {
+  text-align: center;
+}
+
+/* temp fix for dropdowns */
+
+.dropdown{
+  z-index: 10000;
+  background-color: white;
+  box-shadow: 7px 2px 5px -5px rgba(0,0,0,0.4);
+  -webkit-box-shadow: 7px 2px 5px -5px rgba(0,0,0,0.4);
+  -moz-box-shadow: 7px 2px 5px -5px rgba(0,0,0,0.4);;
+}

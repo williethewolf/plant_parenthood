@@ -1,17 +1,21 @@
+from multiprocessing import current_process
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-#from .models import Plant
-#from .forms import WateringForm
+from django.urls import reverse
+
+#I don;t think we need it but I leave it here as a concept. I think instead of using
+#a custom form a simple button on a form on the view will work
+######## from .forms import WateringForm #########
 
 #import form for authetication signup
-
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
-
+#user display and management
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required 
 from django.contrib.auth.mixins import LoginRequiredMixin # research StaffuserRequiredMixin
 
+# custom models being used
 from .models import DbPlant, OwnedPlant
 
 #for the photo implementation
@@ -24,53 +28,97 @@ from .models import DbPlant, OwnedPlant
 from django.http import HttpResponse
 
 
+
+
 # User authentication
 def signup(request):
-  return HttpResponse('<h1>sign in</h1>')
-
-def login(request):
-  return HttpResponse('<h1>log in</h1>')
+    #Define taks for handling POST request
+    form = UserCreationForm()
+    error_message = ''
+    if request.method == 'POST':
+        #capture form inputs from user creation form
+        form = UserCreationForm(request.POST)
+        #validate the form inputs
+        if form.is_valid():
+            # save the input values as a new user to the database
+            user = form.save()
+            #programmatically log the user in
+            login(request, user)
+            #redirect user to the index page
+            return redirect('plants_index')
+        #if form is invalid, handle error
+        else:
+            error_message = 'Invalid credentials'
+    #Define taks for handling GET request
+    context = {'form': form, 'error_messages' : error_message}
+    #render template with empty form
+    return render(request, 'registration/signup.html', context)
 
 # Define the home view
 def home(request):
-  return render(request, 'home.html', {'page_name': 'Home'})
+    return render(request, 'home.html', {'page_name': 'Home'})
 
 def about(request):
-  return render(request, 'about.html', {'page_name': "About"} )
+    return render(request, 'about.html', {'page_name': "About"} )
 
  # User interaction with DB 
-def DbPlants_index(request):
-  return HttpResponse('<h1>plants index</h1>')
+def dbPlants_index(request):
+ #IN THE BASE HTML, THE USER HAS TO BE CHECKED AGAINST TO ONLY SHOW BOTH PUBLIC FEED AND THE DB
+    plants = DbPlant.objects.filter(published = True)
+    return render(request, 'plants/dbindex.html', { 'page_name' : 'Plant Database', 'plants':plants} )
 
 def social_plants_feed(request):
-  return HttpResponse('<h1>plants index</h1>')
+    plants = OwnedPlant.objects.filter(public = True)
+    return render(request, 'plants/social_feed.html', { 'page_name' : 'Social Feed', 'plants':plants} )
+
 
 
 def plants_index(request):
-  return HttpResponse('<h1>plants index</h1>')
+  if request.user:
+    plants = OwnedPlant.objects.filter(user = request.user)
+    return render (request, 'plants/index.html', { 'page_name' : 'My Owned Plants', 'plants':plants} )
 
-def plant_details(request):
-  return HttpResponse('<h1>plants details</h1>')
+def plant_details(request, plant_id):
+    plant = OwnedPlant.objects.get(id=plant_id)
+    return render (request, 'plants/details.html', {'page_name':'Plant Details', 'plant': plant})
 
-def add_watering(request):
-  return HttpResponse('<h1>Water Plants</h1>')
+def dbplant_info(request, plant_id):
+    plant = DbPlant.objects.get(id=plant_id)
+    return render (request, 'plants/details.html', {'page_name':'Plant Info Sheet', 'plant': plant})
 
+#INTERACTIONS
 #I think we wrap all three interactions - watering, health and visibility under a single view called toggles or interactions.
 
-# def health_toggle(request):
-#   return HttpResponse('<h1>Water Plants</h1>')
+def health_toggle(request, plant_id):
+    current_plant = OwnedPlant.objects.get(id=plant_id)
+    current_plant.healthy= not current_plant.healthy
+    current_plant.save(update_fields=['healthy'])
+    return redirect(request.META['HTTP_REFERER'])
+    
 
-# def visibility_toggle(request):
-#   return HttpResponse('<h1>Water Plants</h1>')
+def social_status_switch(request, plant_id):
+    current_plant = OwnedPlant.objects.get(id=plant_id)
+    current_plant.public = not current_plant.public
+    current_plant.save(update_fields=['public'])
+    return redirect(request.META['HTTP_REFERER'])
 
 def add_photo(request):
-  return HttpResponse('<h1>Water Plants</h1>')
+  return HttpResponse('<h1>Add a photo</h1>')
 
-class OwnedPlantAdd(CreateView):
-#remove above and uncomment when log ins are set up and implemented for the super users
-# class PlantAdd(LoginRequiredMixin, CreateView):
+def update_watering_date(request, plant_id, today):
+  watered_plant = OwnedPlant.objects.get(id=plant_id)
+  watered_plant.watering_date=today
+
+  watered_plant.save(update_fields=['watering_date'])
+  return redirect('plant_details', plant_id=plant_id)
+
+#CLASS BASED VIEWS
+class OwnedPlantAdd(LoginRequiredMixin, CreateView):
     model = OwnedPlant
-    fields= ("type", "nickname", "healthy")
+    fields= ("type", "nickname",)
+
+    def get_success_url(self):
+        return reverse('plant_details', kwargs={'plant_id':self.object.pk})
     
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -79,31 +127,37 @@ class OwnedPlantAdd(CreateView):
 class OwnedPlantUpdate(LoginRequiredMixin, UpdateView):
 #remove above and uncomment when log ins are set up and implemented for the super users    
 # class PlantUpdate(LoginRequiredMixin, UpdateView):
-    pass
+    model = OwnedPlant
+    fields = ("type", "nickname", "watering_date", "adopted_since", "comments")
 
 class OwnedPlantDelete(DeleteView):
 #remove above and uncomment when log ins are set up and implemented for the super users
 # class PlantDelete(LoginRequiredMixin, DeleteView):
-    pass
+    model = OwnedPlant
+    success_url = '/plants/'
 
 # Admin and staff interactions
 
-class DbPlantCreate(CreateView):
-#remove above and uncomment when log ins are set up and implemented for the super users
-# class DbPlantCreate(LoginRequiredMixin, CreateView):
-    model = OwnedPlant
-    fields= ("type", "nickname", "healthy")
+class DbPlantCreate(LoginRequiredMixin, CreateView):
+    model = DbPlant
+    fields= ("common_name", "botanical_name", "description", "time_till_dry")
+
+    def get_success_url(self):
+        return reverse('plantdb_info', kwargs={'plant_id':self.object.pk})
     
     def form_valid(self, form):
-        form.instance.user = self.request.user
+        form.instance.added_by = self.request.user
         return super().form_valid(form)
+    
+   
+# MANAGEABLE FROM THE ADMIN PANEL - COMMENTED OUT FOR NOW
 
-class DbPlantUpdate(LoginRequiredMixin, UpdateView):
-#remove above and uncomment when log ins are set up and implemented for the super users    
-# class PlantUpdate(LoginRequiredMixin, UpdateView):
-    pass
+# class DbPlantUpdate(LoginRequiredMixin, UpdateView):
+# #remove above and uncomment when log ins are set up and implemented for the super users    
+# # class PlantUpdate(LoginRequiredMixin, UpdateView):
+#     pass
 
-class DbPlantDelete(DeleteView):
-#remove above and uncomment when log ins are set up and implemented for the super users
-# class PlantDelete(LoginRequiredMixin, DeleteView):
-    pass
+# class DbPlantDelete(DeleteView):
+# #remove above and uncomment when log ins are set up and implemented for the super users
+# # class PlantDelete(LoginRequiredMixin, DeleteView):
+#     pass

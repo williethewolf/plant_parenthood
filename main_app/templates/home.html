@@ -1,20 +1,19 @@
 {% extends 'base.html' %}
 
-{% load static %}
-
 {% block content %}
 <div class="row">
-    <div class="carousel center">
-        <div class="carousel-item" href="#one!">
-            <div class="car-card">
-                <h1>I collect plants, but I'm not crazy</h1>
-            </div>
+    <div class="col s6">
+        <div class="home-content">
+            <span class="app-title">PLANT PARENTHOOD</span>
+            <p class="flow-text">Our aim is to inspire and provide you the training and knowledge you need to be a proud plant parent</p>
+            <a href="{% url 'signup' %}" class="btn green darken-4 signup">Signup</a>
         </div>
-        <a class="carousel-item" href="#two!"><img src="{% static "/imgs/people/00109-2609278882.png"%}"></a>
-        <a class="carousel-item" href="#three!"><img src="{% static "/imgs/people/00088-655689592.png"%}"></a>
-        <a class="carousel-item" href="#four!"><img src="{% static "/imgs/people/00018.jpg"%}"></a>
-        <a class="carousel-item" href="#five!"><img src="{% static "/imgs/people/00008.png"%}"></a>
-        <a class="carousel-item" href="#six!"><img src="{% static "/imgs/people/00016.png"%}"></a>
+    </div>
+    <div class="col s6 img-container fadeIn">
+        <img src="../static/imgs/plants/general-use/home-img.png" alt="plants"/>
     </div>
 </div>
+
+
+
 {% endblock %}

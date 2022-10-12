@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="loginbox fadeInDown addPlantBox">
+    <div class="login-form FadeIn signupForm addPlantForm">
+        <i class="fa-solid fa-leaf"></i>
+        {% if object %}
+        <h1>Editing Plant</h1>
+        <h4>{{object.name}}</h4>
+        {% else %}
+        <h1>Add a plant to my collection</h1>
+        {% endif %}
+        <form action="" method="POST">
+            {% csrf_token %}
+            <table class= "stripped">
+                {{form.as_table}}
+            </table>
+            {% if object %}
+            <input class="btn yellow darken-2" type="submit" value="Update Plant">
+            {% else %}
+            <input class="btn green darken-4" type="submit" value="Add Plant">
+            {% endif %}
+        </form>
+    </div>
+</div>
+<script>
+    const selectEl = document.getElementById('id_type')
+    const checkEl =document.getElementById('id_healthy')
+    M.FormSelect.init(selectEl)
+    {% comment %} checkbox fix {% endcomment %}
+    {% comment %} const checkFix = document.createElement('span')
+    checkFix.innerHTML = ""
+    checkEl.parentNode.insertBefore(checkFix,checkEl.nextSibling) {% endcomment %}
+
+</script>   
+{% endblock%}
