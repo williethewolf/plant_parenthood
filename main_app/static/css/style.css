@@ -132,11 +132,16 @@ header nav ul li:hover > ul {
   font-size: 4rem;
 }
 
+.row .col.s12 {
+  text-align: center;
+}
+
 .img-container img {
   margin-top: 6rem;
   filter: drop-shadow(30px 15px 1rem #acacac);
   max-width: 100%;
   height:auto;
+  text-align: center;
 }
 .footer-copyright {
   color: black;
@@ -490,6 +495,11 @@ header nav ul li ul{
 
 /* About Page */
 
+.about-container {
+  overflow: auto;
+}
+
+
 .about-table {
   width: 85%;
   margin: auto;
@@ -498,11 +508,7 @@ header nav ul li ul{
 .table-break {
   margin-top: 5%;
 }
-.about-img {
-  display: flex;
-  justify-content: center;
-  filter: drop-shadow(30px 15px 1rem #acacac);
-}
+
 .about-green {
   background-color: #1b5e20;
   color: white;
@@ -538,6 +544,20 @@ header nav ul li ul{
 }
 .dev-name, .dev-info {
   text-align: center;
+}
+
+@media (max-width : 719px){
+  .about-table {
+    font-size: .75rem;
+  }
+  .about-head .app-title {
+    font-size: 1.5rem;
+  }
+
+  .dev-name h4{
+    font-size: 1.25rem;
+    font-weight: 500;
+  }
 }
 
 /* temp fix for dropdowns */
