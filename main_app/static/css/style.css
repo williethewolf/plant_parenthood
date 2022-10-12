@@ -188,6 +188,9 @@ header nav ul li:hover > ul {
     z-index: 9;
   }
 
+  .hide {
+    display: none;
+  }
 
   #check:checked ~ ul {
     left: 0;
@@ -377,6 +380,10 @@ header nav ul li ul{
   font-weight: 600;
 }
 
+.align {
+  text-align: right;
+}
+
 @media (max-width: 765px) {
   .card.horizontal .card-image {
     max-width: 100%;
@@ -384,6 +391,10 @@ header nav ul li ul{
   }
   .card.horizontal .card-stacked {
     display: none;
+  }
+
+  .align {
+    text-align: center;
   }
 }
 
@@ -403,6 +414,49 @@ header nav ul li ul{
     right: auto;
   }
 }
+
+/* ADD PLANT FORM */
+/* Inherits style from Login & Signup */
+
+.addPlantBox {
+  height: auto;
+  width: 600px;
+}
+
+.addPlantForm {
+  width: 500px;
+  margin: 4rem 0;
+}
+
+.addPlantForm h1{
+  margin: 10px 0;
+}
+
+@media (max-width : 719px) {
+
+  .addPlantBox {
+    width: 90%;
+    height: auto;
+  }
+  .addPlantForm {
+    width: 90%;
+    height: auto;
+    margin: 20px 0;
+  }
+
+  .addPlantForm h1 {
+    font-size: 1.25rem;
+  }
+
+  .addPlantForm label {
+    font-size: 1rem;
+  }
+
+  .addPlantForm .btn {
+    font-size: 1.25rem;
+  }
+}
+
 
 /* ANIMATIONS */
 
