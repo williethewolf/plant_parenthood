@@ -30,7 +30,7 @@
                     <li><a href="{% url 'social_plants_feed' %}">Social Plants</a></li>
                     {% if user.is_authenticated %}
                     <li>
-                        <a href="#!">Add<i class="material-icons right">arrow_drop_down</i></a>
+                        <a href="#!" id="ddm1">Add<i class="material-icons right">arrow_drop_down</i></a>
                         <ul class="dropdown">
                             <li><a href="{% url 'plant_add' %}">Add a plant</a></li>
                             {% if request.user.is_active and request.user.is_staff %}
@@ -39,7 +39,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="#!">Plants<i class="material-icons right">arrow_drop_down</i></a>
+                        <a href="#!" id="ddm2">Plants<i class="material-icons right">arrow_drop_down</i></a>
                         <ul class="dropdown">
                             <li><a href="{% url 'plants_index' %}">My plants</a></li>
                             <li><a href="{% url 'plantsDB_index' %}">Plants DB</a></li>
@@ -97,6 +97,28 @@
                 }
             }
             window.addEventListener("scroll", fixedNavBar);
+
+            // TOGGLE DROPDOWN
+            const ddm1 = document.getElementById("ddm1");
+            const ddm2 = document.getElementById("ddm2")
+            
+            // apply click event to dropdown only on mobile-sized screens
+            const w = document.documentElement.clientWidth || window.innerWidth;
+            if (w <= 920){
+                //by default, dropdown menu displays upon clicking the parent
+                //to remove the need to click twice to activate toggle, add hide class first.
+                ddm1.nextElementSibling.classList.add("hide");
+                ddm2.nextElementSibling.classList.add("hide");
+                
+                //toggle function to hide or show dropdown on mobile screens
+                ddm1.addEventListener("click", function() {
+                    ddm1.nextElementSibling.classList.toggle("hide");
+                })
+                
+                ddm2.addEventListener("click", function() {
+                    ddm2.nextElementSibling.classList.toggle("hide");
+                })
+            }
         </script>
     </body>
 </html>

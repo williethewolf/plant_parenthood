@@ -1,25 +1,28 @@
 {% extends 'base.html' %}
 {% block content %}
 
-    {% if object %}
-    <h1>Edit Plant</h1>
-    <h4>{{object.name}}</h4>
-    {% else %}
-    <h1>Add new Plant to my personal collection</h1>
-    {% endif %}
-    <div>
+<div class="loginbox fadeInDown addPlantBox">
+    <div class="login-form FadeIn signupForm addPlantForm">
+        <i class="fa-solid fa-leaf"></i>
+        {% if object %}
+        <h1>Editing Plant</h1>
+        <h4>{{object.name}}</h4>
+        {% else %}
+        <h1>Add a plant to my collection</h1>
+        {% endif %}
         <form action="" method="POST">
             {% csrf_token %}
             <table class= "stripped">
                 {{form.as_table}}
             </table>
             {% if object %}
-            <input class="btn yellow" type="submit" value="Edit Plant">
+            <input class="btn yellow darken-2" type="submit" value="Update Plant">
             {% else %}
-            <input class="btn green" type="submit" value="Add Plant">
+            <input class="btn green darken-4" type="submit" value="Add Plant">
             {% endif %}
         </form>
     </div>
+</div>
 <script>
     const selectEl = document.getElementById('id_type')
     const checkEl =document.getElementById('id_healthy')
