@@ -76,8 +76,9 @@
                 </div>
             </div>
         </footer>
-
+        {% block script %}
         <script>
+            document.addEventListener("DOMContentLoaded", ()=> {
             {% comment %} drop down code {% endcomment %}
             var dropdowns = document.querySelectorAll('.dropdown-trigger')
             for (var i = 0; i < dropdowns.length; i++){
@@ -122,11 +123,39 @@
                 })
             }
 
-            //CAROUSEL
-            document.addEventListener('DOMContentLoaded', function() {
-                var elems = document.querySelectorAll('.carousel')
-                var instances = M.Carousel.init(elems, {height:512, numVisible:10, dist:0})
-            })
+            //SLIDESHOW
+            
+            let slideIndex = 1;
+            showSlides(slideIndex);
+
+            // Next/previous controls
+            window.plusSlides = function(n) {
+                showSlides(slideIndex += n);
+            }
+
+            // Thumbnail image controls
+            window.currentSlide = function(n) {
+                showSlides(slideIndex = n);
+            }
+
+            function showSlides(n) {
+                let i;
+                let slides = document.getElementsByClassName("mySlides");
+                let dots = document.getElementsByClassName("dot");
+                console.log(slides, dots);
+                if (n > slides.length) {slideIndex = 1}
+                if (n < 1) {slideIndex = slides.length}
+                for (i = 0; i < slides.length; i++) {
+                    slides[i].style.display = "none";
+                }
+                for (i = 0; i < dots.length; i++) {
+                    dots[i].className = dots[i].className.replace(" active", "");
+                }
+                slides[slideIndex-1].style.display = "block";
+                dots[slideIndex-1].className += " active";
+            }
+                })
         </script>
+        {% endblock %}
     </body>
 </html>
