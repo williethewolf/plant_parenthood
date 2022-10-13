@@ -22,7 +22,7 @@ An app that allows Plant Parent to organize, tend, learn, and share their favori
 ![Wireframe](images/Wireframe.png)
 ![ERD](images/ERD.png)
 ## App Screenshots
-![Sign In Page](/static/imgs/screenshots/plantparenthood_Signin.png)
+![Sign In Page](static/imgs/screenshots/signin.png)
 
 ## Getting Started
 Click to peek at the [Project Planning](https://trello.com/invite/b/hbyxIKmV/b09dd0d53d3da8907fda375afef6b8f5/plant-parenthood) 
