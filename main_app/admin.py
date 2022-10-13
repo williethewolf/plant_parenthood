@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import  DbPlant, OwnedPlant
+from .models import  DbPlant, OwnedPlant, Photo, DbPhoto
 # admin.site.register(DbPlant)
 admin.site.register(OwnedPlant)
 
@@ -18,3 +18,6 @@ class DbPlantAdmin(admin.ModelAdmin):
     actions = [make_published]
 
 admin.site.register(DbPlant, DbPlantAdmin)
+
+admin.site.register(Photo)
+admin.site.register(DbPhoto)

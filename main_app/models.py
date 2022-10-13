@@ -40,3 +40,20 @@ class OwnedPlant(models.Model):
 
     def get_absolute_url(self):
         return reverse('plant_details', kwargs={'plant_id': self.id})
+
+
+class Photo(models.Model):
+    url = models.CharField(max_length=200)
+    plant = models.ForeignKey(OwnedPlant, on_delete=models.CASCADE)
+   
+
+    def __str__(self):
+        return f'Photo for plant_id: {self.plant_id} @{self.url}'
+
+class DbPhoto(models.Model):
+    url = models.CharField(max_length=200)
+    plant = models.ForeignKey(DbPlant, on_delete=models.CASCADE)
+   
+
+    def __str__(self):
+        return f'Photo for plant_id: {self.plant_id} @{self.url}'

@@ -119,6 +119,12 @@
                     ddm2.nextElementSibling.classList.toggle("hide");
                 })
             }
+
+            //CAROUSEL
+            document.addEventListener('DOMContentLoaded', function() {
+                var elems = document.querySelectorAll('.carousel')
+                var instances = M.Carousel.init(elems, {height:512, numVisible:10, dist:0})
+            })
         </script>
     </body>
 </html>
