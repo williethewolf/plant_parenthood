@@ -13,16 +13,22 @@ An app that allows Plant Parent to organize, tend, learn, and share their favori
 - As a user I want to be able to track feeding cycles of my plants 
 - As an administrator I want to be able to perform full CRUD on the DB
 - As a user i want to see detail information about plants
-- As a user I want the plants to be sorted by ease of care (easy, medium, difficult etc)
-- As i a user i want the plants to be sorted by indoor or outdoor plants
-- As i a user i want the plants to be sorted by plant height
-- As a user i want to be  able to filter the plants by ease of care
+- As a user I want to be able to suggest new plants to the available plant DB
+- As an administrator I want to be able to approve suggested plants from the Queue
+- As i a user i want to have a community to feature plants
+- As a user i want to be able to add photos of my plants
+- As a user i want the app to be mobile responsive
 
 ## Wireframe and ERD
 ![Wireframe](images/Wireframe.png)
 ![ERD](images/ERD.png)
 ## App Screenshots
 ![Sign In Page](main_app/static/imgs/screenshots/signin.png)
+![About Page](main_app/static/imgs/screenshots/aboutpage.png)
+![Add Plant Page](main_app/static/imgs/screenshots/addplant.png)
+![Edit Plant Page](main_app/static/imgs/screenshots/editplant.png)
+![User Index Page](main_app/static/imgs/screenshots/userindex.png)
+![User Index Page](main_app/static/imgs/screenshots/userindex2.png)
 
 ## Getting Started
 Click to peek at the [Project Planning](https://trello.com/invite/b/hbyxIKmV/b09dd0d53d3da8907fda375afef6b8f5/plant-parenthood) 
@@ -41,13 +47,8 @@ Most importantly you can enjoy the app by clicking this link: [PLANT PARENTHOOD]
 - Trello
 - Invision
 
-## Unsolved Problems
-Here's a list of issues detected so far:
-- Pending
-
 ## Future Enhancements
-- As a user I want to be able to suggest new plants to the available plant DB
-- As an administrator I want to be able to approve suggested plants from the Queue
-- As i a user i want to have a community to feature plants
-- As a user i want to be able to add photos of my plants
-- As a user i want the app to be mobile responsive
+- As a user I want the plants to be sorted by ease of care (easy, medium, difficult etc)
+- As i a user i want the plants to be sorted by indoor or outdoor plants
+- As i a user i want the plants to be sorted by plant height
+- As a user i want to be  able to filter the plants by ease of care
