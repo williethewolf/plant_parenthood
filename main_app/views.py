@@ -16,13 +16,16 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.mixins import LoginRequiredMixin # research StaffuserRequiredMixin
 
 # custom models being used
-from .models import DbPlant, OwnedPlant
+from .models import DbPlant, OwnedPlant, Photo, DbPhoto
 
 #for the photo implementation
-#from plantparenthood.settings import ACCES_KEY, ACCESS_ID
+from plantparenthood.settings import ACCESS_KEY, ACCESS_ID
 
-# import uuid
-# import boto3
+import uuid
+import boto3
+
+S3_BASE_URL = 'https://s3.us-west-1.amazonaws.com/'
+BUCKET = 'cat-collector-eric-photos'
 
 #Remove this line for clean up once we implement the proper views renders
 from django.http import HttpResponse
@@ -102,8 +105,8 @@ def social_status_switch(request, plant_id):
     current_plant.save(update_fields=['public'])
     return redirect(request.META['HTTP_REFERER'])
 
-def add_photo(request):
-  return HttpResponse('<h1>Add a photo</h1>')
+# def add_photo(request):
+#   return HttpResponse('<h1>Add a photo</h1>')
 
 def update_watering_date(request, plant_id, today):
   watered_plant = OwnedPlant.objects.get(id=plant_id)
@@ -112,6 +115,38 @@ def update_watering_date(request, plant_id, today):
   watered_plant.save(update_fields=['watering_date'])
   return redirect('plant_details', plant_id=plant_id)
 
+
+
+def add_photo(request, plant_id):
+    # capture the photo file from form submission
+    photo_file = request.FILES.get('photo-file')
+    # check if a file is present
+    if photo_file:
+        # initialize the boto3 s3 service
+        s3 = boto3.client('s3')
+        # create a unique id for each photo file
+        key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
+        # attempt to upload the file asset to AWS s3
+        try:
+            s3.upload_fileobj(photo_file, BUCKET, key)
+            # generate a url based on the returned value of uploading to AWS
+            url = f"{S3_BASE_URL}{BUCKET}/{key}"
+            # associate the cat to the new photo instance
+            # store the url as a value in the photo url attribute
+            if '/plantsdb/' in request.path:
+                photo = DbPhoto(url=url, plant_id=plant_id)
+            else:     
+                 photo = Photo(url=url, plant_id=plant_id)
+            photo.save()
+            
+
+        except Exception as error:
+            print('An error has occurred')
+            print(error)
+    if '/plantsdb/' in request.path:
+        return redirect('plantdb_info', plant_id=plant_id)
+    else:
+        return redirect('plant_details', plant_id=plant_id)
 #CLASS BASED VIEWS
 class OwnedPlantAdd(LoginRequiredMixin, CreateView):
     model = OwnedPlant

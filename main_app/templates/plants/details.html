@@ -4,15 +4,90 @@
 
 {% block content %}
     <h1>{{page_name}}</h1>
-    <div class="card">
+    <div class="card gradient">
         <div class="card-content">
             <div class="row">
                 <div class="col s6">
-                    <img src="{% static "/imgs/plants/db-use/devils_ivy.png"%}" style="width: 100%";>
+                    {%if plant.botanical_name%}
+                    <div class="slideshow-container">
+                        {% for photo in plant.dbphoto_set.all %}
+                        <div class="mySlides fade">
+                            <!-- <div class="numbertext">current image / total number of images</div> -->
+                            <img class="roundCorners" src="{{ photo.url }}" alt="{{ plant.name }}" />
+                            <div class="caption">Caption Text</div>
+                        </div>
+                        {% empty %}
+                        <img src="{% static "/imgs/plants/db-use/devils_ivy.png"%}" style="width: 100%";>
+                    {% endfor %}
+                    </div>
+                    {%else%}
+                    <div class="row">
+                        <div class="slideshow-container">
+                            <!-- Display user's photos -->
+                            {% for photo in plant.photo_set.all %}
+                            <div class="mySlides fade">
+                                <!-- <div class="numbertext">current image / total number of images</div> -->
+                                <img class="roundCorners" src="{{ photo.url }}" alt="{{ plant.name }}" style="width: 100%"/>
+                                <div class="caption">Caption Text</div>
+                            </div>
+                            <!-- If user photo collection is empty or hasn't uploaded yet use the photos from DB -->
+                            {% empty %}
+                            {% for photo in plant.type.dbphoto_set.all%}
+                            <div class="mySlides fade">
+                                <!-- <div class="numbertext">current image / total number of images</div> -->
+                                <img class="roundCorners" src="{{ photo.url }}" alt="{{ plant.name }}" />
+                                <div class="caption">Caption Text</div>
+                            </div>
+                            <!-- If DB photo collection is empty, use a card panel  -->
+                            {% empty %}
+                            <div class="card-panel teal-text">No Photos Uploaded Yet</div>
+                            {% endfor %}    
+                            {% endfor %}
+                            <!-- Next and previous buttons -->
+                            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+                            {% comment %} <img src="{% static "/imgs/plants/db-use/devils_ivy.png"%}" style="width: 100%";> {% endcomment %}
+                        </div>
+                        <div style="text-align:center">
+                            <span class="dot" onclick="currentSlide(1)"></span>
+                            <span class="dot" onclick="currentSlide(2)"></span>
+                            <span class="dot" onclick="currentSlide(3)"></span>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {%if plant.botanical_name%}
+                        {% if request.user.is_staff %}
+                        <div class="row">
+                            <form
+                            action="{% url 'add_dbphoto' plant.id %}"
+                            method="POST"
+                            class="card-panel"
+                            enctype="multipart/form-data"
+                            >
+                            {% csrf_token %}
+                            <input type="file" name="photo-file" />
+                            <input type="submit" value="Add Photo" />
+                            </form>
+                        </div>
+                        {% endif %}
+                    {% else %}
+                    <div class="row">
+                        <form
+                        action="{% url 'add_photo' plant.id %}"
+                        method="POST"
+                        class="card-panel roundCorners addPhoto center"
+                        enctype="multipart/form-data"
+                        >
+                        {% csrf_token %}
+                        <input type="file" name="photo-file" />
+                        <input class="btn green lighten-3" type="submit" value="Add Photo" />
+                        </form>
+                    </div>
+                    {% endif %}
                 </div>
-                <div class="col s6">
+                <div class="col s6 bottom">
                     {%if plant.botanical_name%}                 
-                    <span class="card-title"> {{plant.common_name}} <span/>
+                    <span class="bold"> {{plant.common_name}} <span/>
                         <h6><i>{{plant.botanical_name}}</i></h6>
                     <div>
                         <p>Description:</p>
@@ -24,24 +99,19 @@
                     </div>
                     </div>
                     {%else%}
-                    <span class="card-title"> {{plant.nickname}} <span/>
-                    <p>Type: 
-                        
-                        {{plant.type.common_name}}
-                        
-                    </p>
+                    <span class="card-title bold"> {{plant.nickname}} </span>
+                    <span class="bold">Type: </span>{{plant.type.common_name}}
                 </div>
                 <div class = "col s6">
                     <div class="row">
                         <div class="col s6">
-                            <span>Comments:</span>
+                            <span class="bold">Comments:</span>
                             {%if plant.comments %}
                             <p class="card horizontal">{{plant.comments}}</p>
                             {% else %}
                             <p>No comments yet. Edit the card to input</p>
                             {% endif %}
-                            <hr>
-                            <p>Last Watering: {{plant.watering_date}}</p>
+                            <p class="bold">Last Watering: {{plant.watering_date}}</p>
                             {% today_date as today %}
                             {%days_until plant.watering_date plant.type.time_till_dry as days_until%}
                             {%for value in days_until|times %}
@@ -52,16 +122,16 @@
                         </div>
                         <div class="col s6">
                             {% if days_until >= 0 %}
-                            <span class="green-text">Plant is happy and still watered</span>
+                            <span class="bold">Plant Status: </span><span class="green-text">Plant is happy and still watered</span>
                             {% else %}
-                            <span class="red-text">Plant needs watering</span>
+                            Plant Status: <span class="red-text">Plant needs watering</span>
                             {% endif %}
-                            
+                            <br>
                             {% if days_until <= plant.type.time_till_dry %}
-                            <span><p class="blue-text">Watered</p> 
+                            <span class="bold">Plant Status: </span><span class="blue-text">Watered
                             <form action="{% url 'update_watering_date' plant.id  today %}" method="post">
                                 {% csrf_token %}
-                                <button class="blue lighten-4">Water Again</button>
+                                <button class="btn blue lighten-4">Water Again</button>
                             </form></span>
                             {% else %}               
                             <span><p class="red-text">Needs Water</p>
@@ -72,50 +142,80 @@
                             {% endif %}
                         </div>
                     </div>
-                    <hr>
                     <div class="row">
-                        <div class="col s6">
-                            <div>
-                                <form action="{% url 'health_toggle' plant.id %}" method="post">
-                                    {% csrf_token %}
-                                    <p>
-                                        <label onclick="this.form.submit()">
-                                            {% if plant.healthy %}
-                                            <input type="checkbox" checked="checked" />
-                                            {% else %}
-                                            <input type="checkbox" />
-                                            {% endif %}
-                                            <span>This plant is healthy</span>
-                                        </label>
-                                    </p>
-                                </form>
-                            </div>         
+                        <div class="col s6 center bottom">
+                            <form action="{% url 'health_toggle' plant.id %}" method="post">
+                                {% csrf_token %}
+                                <p>
+                                    <label onclick="this.form.submit()">
+                                        {% if plant.healthy %}
+                                        <input type="checkbox" checked="checked" />
+                                        {% else %}
+                                        <input type="checkbox" />
+                                        {% endif %}
+                                        <span>This plant is healthy</span>
+                                    </label>
+                                </p>
+                            </form>       
                         </div>
-                        <div class="col s6">
-                            <div class="align">
-                                <form action="{% url 'social_status_switch' plant.id %}" method="post">
-                                    {% csrf_token %}
-                                    <p>
-                                        <label onclick="this.form.submit()">
-                                            {% if plant.public %}
-                                            <input type="checkbox" checked="checked" />
-                                            {% else %}
-                                            <input type="checkbox" />
-                                            {% endif %}
-                                            <span>Share on Public feed</span>
-                                        </label>
-                                    </p>
-                                </form>
-                            </div>
+                        <div class="col s6 center bottom">
+                            <form action="{% url 'social_status_switch' plant.id %}" method="post">
+                                {% csrf_token %}
+                                <p>
+                                    <label onclick="this.form.submit()">
+                                        {% if plant.public %}
+                                        <input type="checkbox" checked="checked" />
+                                        {% else %}
+                                        <input type="checkbox" />
+                                        {% endif %}
+                                        <span>Share on Public feed</span>
+                                    </label>
+                                </p>
+                            </form>
                         </div>
-                        <div class="card-action">
-                            <a href="{% url 'plant_update' plant.id %}">Edit</a>
-                            <a href="{% url 'plant_delete' plant.id %}">Delete</a>
+                        <div class="col s12 card-action">
+                            <a class="btn yellow darken-2" href="{% url 'plant_update' plant.id %}">Edit</a>
+                            <a class="btn red lighten-1" href="{% url 'plant_delete' plant.id %}">Delete</a>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>            
         </div>
     </div>
 {% endif %}      
 {% endblock %}
+
+<script>
+//     document.addEventListener("DOMContentLoaded", ()=> {
+//         let slideIndex = 1;
+// showSlides(slideIndex);
+
+// // Next/previous controls
+// function plusSlides(n) {
+//     showSlides(slideIndex += n);
+// }
+
+// // Thumbnail image controls
+// function currentSlide(n) {
+//     showSlides(slideIndex = n);
+// }
+
+// function showSlides(n) {
+//     let i;
+//     let slides = document.getElementsByClassName("mySlides");
+//     let dots = document.getElementsByClassName("dot");
+//     console.log(slides, dots);
+//     if (n > slides.length) {slideIndex = 1}
+//     if (n < 1) {slideIndex = slides.length}
+//     for (i = 0; i < slides.length; i++) {
+//         slides[i].style.display = "none";
+//     }
+//     for (i = 0; i < dots.length; i++) {
+//         dots[i].className = dots[i].className.replace(" active", "");
+//     }
+//     slides[slideIndex-1].style.display = "block";
+//     dots[slideIndex-1].className += " active";
+// }
+//     })
+
+</script>

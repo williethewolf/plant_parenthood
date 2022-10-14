@@ -23,6 +23,10 @@ a {
   color: black;
 }
 
+h1 {
+  text-transform: uppercase;
+  font-weight: 600;
+}
 /* NAVIGATION */
 nav {
   padding: 0 1rem;
@@ -132,11 +136,16 @@ header nav ul li:hover > ul {
   font-size: 4rem;
 }
 
+.row .col.s12 {
+  text-align: center;
+}
+
 .img-container img {
   margin-top: 6rem;
   filter: drop-shadow(30px 15px 1rem #acacac);
   max-width: 100%;
   height:auto;
+  text-align: center;
 }
 .footer-copyright {
   color: black;
@@ -490,6 +499,11 @@ header nav ul li ul{
 
 /* About Page */
 
+.about-container {
+  overflow: auto;
+}
+
+
 .about-table {
   width: 85%;
   margin: auto;
@@ -498,11 +512,7 @@ header nav ul li ul{
 .table-break {
   margin-top: 5%;
 }
-.about-img {
-  display: flex;
-  justify-content: center;
-  filter: drop-shadow(30px 15px 1rem #acacac);
-}
+
 .about-green {
   background-color: #1b5e20;
   color: white;
@@ -526,10 +536,6 @@ header nav ul li ul{
   font-size:larger;
   margin: 10px
 }
-.profiles {
-  text-decoration: none;
-  color: #1b5e20;
-}
 .social-logo {
   width: 40px;
 }
@@ -538,6 +544,27 @@ header nav ul li ul{
 }
 .dev-name, .dev-info {
   text-align: center;
+  color: #1b5e20;
+}
+
+@media (max-width : 719px){
+  .about-table {
+    font-size: .75rem;
+  }
+  .about-head .app-title {
+    font-size: 1.5rem;
+  }
+
+  .dev-name h4{
+    font-size: 1.25rem;
+    font-weight: 500;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
 }
 
 /* temp fix for dropdowns */
@@ -548,4 +575,117 @@ header nav ul li ul{
   box-shadow: 7px 2px 5px -5px rgba(0,0,0,0.4);
   -webkit-box-shadow: 7px 2px 5px -5px rgba(0,0,0,0.4);
   -moz-box-shadow: 7px 2px 5px -5px rgba(0,0,0,0.4);;
+}
+
+/* DETAILS PAGE */
+
+.center {
+  text-align: center;
+}
+
+.bottom {
+  margin-bottom: 1rem;
+}
+
+.gradient {
+  /* background: rgb(165,214,167);
+  background: linear-gradient(180deg, rgba(165,214,167,1) 0%, rgba(255,255,255,1) 32%);  */
+}
+
+.roundCorners {
+  border-radius: 20px;
+}
+
+.bold {
+  font-weight: 600 !important;
+}
+
+.addPhoto input[type=file],
+.addPhoto input[type=submit] {
+  margin: 10px;
+}
+/* Slideshow container */
+.slideshow-container {
+  max-width: 1000px;
+  position: relative;
+  margin: auto;
+}
+
+/* Hide the images by default */
+.mySlides {
+  display: none;
+}
+
+/* Next & previous buttons */
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  margin-top: -22px;
+  padding: 16px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+
+/* Caption text */
+.text {
+  color: #f2f2f2;
+  font-size: 15px;
+  padding: 8px 12px;
+  position: absolute;
+  bottom: 8px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+/* The dots/bullets/indicators */
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active, .dot:hover {
+  background-color: #717171;
+}
+
+/* Fading animation */
+.fade {
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
 }

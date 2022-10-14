@@ -9,7 +9,12 @@
         <a href ="/plantsdb/{{ plant.id }}">
             <div class="card horizontal">
                 <div class="card-image">
-                    <img src="{% static "/imgs/plants/db-use/devils_ivy.png"%}" alt="{{plant.common_name}} image">
+                    {% if plant.dbphoto_set.first %}
+                    <img src="{{ plant.dbphoto_set.first.url }}" alt="{{ plant.name }}">
+                    {% else %}
+                    <img src="{% static "/imgs/plants/db-use/admin.png"%}" style="width: 100%";>
+                    <p>Awaiting admin photo upload</p>
+                    {% endif %}
                     <span class="card-title"> {{plant.common_name}} <span/>
                 </div>
                 <div class="card-stacked">
