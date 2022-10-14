@@ -56,6 +56,20 @@
                     </div>
                     {% endif %}
                     {%if plant.botanical_name%}
+                        {% if request.user.is_staff %}
+                        <div class="row">
+                            <form
+                            action="{% url 'add_dbphoto' plant.id %}"
+                            method="POST"
+                            class="card-panel"
+                            enctype="multipart/form-data"
+                            >
+                            {% csrf_token %}
+                            <input type="file" name="photo-file" />
+                            <input type="submit" value="Add Photo" />
+                            </form>
+                        </div>
+                        {% endif %}
                     {% else %}
                     <div class="row">
                         <form

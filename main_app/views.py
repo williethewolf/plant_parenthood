@@ -133,20 +133,19 @@ def add_photo(request, plant_id):
             url = f"{S3_BASE_URL}{BUCKET}/{key}"
             # associate the cat to the new photo instance
             # store the url as a value in the photo url attribute
-            # if '/plantsdb/' in request.path:
-            #     photo = DbPhoto(url=url, plant_id=plant_id)
-            #     photo.save()
-            # else:     
-            photo = Photo(url=url, plant_id=plant_id)
+            if '/plantsdb/' in request.path:
+                photo = DbPhoto(url=url, plant_id=plant_id)
+            else:     
+                 photo = Photo(url=url, plant_id=plant_id)
             photo.save()
             
 
         except Exception as error:
             print('An error has occurred')
             print(error)
-    # if '/plantsdb/' in request.path:
-    #     return redirect('plantdb_info', plant_id=plant_id)
-    # else:
+    if '/plantsdb/' in request.path:
+        return redirect('plantdb_info', plant_id=plant_id)
+    else:
         return redirect('plant_details', plant_id=plant_id)
 #CLASS BASED VIEWS
 class OwnedPlantAdd(LoginRequiredMixin, CreateView):

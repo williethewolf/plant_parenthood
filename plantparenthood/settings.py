@@ -16,7 +16,7 @@ import environ
 env = environ.Env()
 BASE_DIR = Path(__file__).resolve().parent.parent
 environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
-
+# environ.Env.read_env()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 
 ACCESS_KEY = env('AWS_ACCESS_KEY_ID')

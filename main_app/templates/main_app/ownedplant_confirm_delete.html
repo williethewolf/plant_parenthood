@@ -4,11 +4,15 @@
 <h1>Delete Plant</h1>
 
 <h4>
-    Are you sure you want to delete <span class="teal-text">{{ object.name }}</span>
+    Are you sure you want to delete? <span class="teal-text">{{ object.name }}</span>
 </h4>
+
     <form action="" method="POST">
         {% csrf_token %}
-        <input class="'btn red" type="submit" value="Delete">
-        <a class="btn blue" href="{% url 'plant_details' object.id %}">Cancel</a>
+        <div>
+            <a class="btn btn-medium waves-effect waves-teal orange fade"><input type="submit" value="Delete"></input></a>
+                <a class="orange-text waves-effect waves-teal btn-flat btn-medium" href="{% url 'plant_details' object.id %}">Cancel</a>
+        </div>
     </form>
+
 {% endblock %}
