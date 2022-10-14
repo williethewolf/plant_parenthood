@@ -16,7 +16,10 @@ main {
 
 footer {
   padding-top: 0;
-  text-align: right;
+}
+
+.footer-copyright {
+  text-align: center;
 }
 
 a {
@@ -170,9 +173,6 @@ header nav ul li:hover > ul {
   color: black;
 }
 
-.footer-copyright .container {
-  margin-right: 0;
-}
 
 .bold-green {
   font-weight: 600;
