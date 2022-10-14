@@ -29,7 +29,7 @@ ACCESS_ID = env('AWS_SECRET_ACCESS_KEY')
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG') == 'True'
 
 ALLOWED_HOSTS = []
 
@@ -137,3 +137,9 @@ LOGOUT_REDIRECT_URL= '/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+DEBUG_PROPAGATE_EXCEPTIONS = True
+
+# Configure Django App for Heroku
+import django_heroku
+django_heroku.settings(locals())
