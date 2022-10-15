@@ -17,7 +17,7 @@
                             <div class="caption">Caption Text</div>
                         </div>
                         {% empty %}
-                        <img src="{% static "/imgs/plants/db-use/devils_ivy.png"%}" style="width: 100%";>
+                        <img src="{% static "imgs/plants/db-use/devils_ivy.png"%}" style="width: 100%";>
                     {% endfor %}
                     </div>
                     {%else%}
@@ -46,7 +46,7 @@
                             <!-- Next and previous buttons -->
                             <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
                             <a class="next" onclick="plusSlides(1)">&#10095;</a>
-                            {% comment %} <img src="{% static "/imgs/plants/db-use/devils_ivy.png"%}" style="width: 100%";> {% endcomment %}
+                            {% comment %} <img src="{% static "imgs/plants/db-use/devils_ivy.png"%}" style="width: 100%";> {% endcomment %}
                         </div>
                         <div style="text-align:center">
                             <span class="dot" onclick="currentSlide(1)"></span>
@@ -61,12 +61,12 @@
                             <form
                             action="{% url 'add_dbphoto' plant.id %}"
                             method="POST"
-                            class="card-panel"
+                            class="card-panel roundCorners addPhoto center"
                             enctype="multipart/form-data"
                             >
                             {% csrf_token %}
                             <input type="file" name="photo-file" />
-                            <input type="submit" value="Add Photo" />
+                            <input class="btn green lighten-3" type="submit" value="Add Photo" />
                             </form>
                         </div>
                         {% endif %}
@@ -85,19 +85,25 @@
                     </div>
                     {% endif %}
                 </div>
-                <div class="col s6 bottom">
+                <div class="col s6 bottom description">
                     {%if plant.botanical_name%}                 
-                    <span class="bold"> {{plant.common_name}} <span/>
-                        <h6><i>{{plant.botanical_name}}</i></h6>
                     <div>
-                        <p>Description:</p>
+                        <span class="bold">Common name:</span> 
+                        <p>{{plant.common_name}}</p>
+                    </div>
+                    <div>
+                        <span class="bold">Botanical name:</span> 
+                        <p><i>{{plant.botanical_name}}</i></p>
+                    </div>
+                    <div>
+                        <span class="bold">Description:</span>
                         <p> {{plant.description}}</p>
                     </div>
                     <div>
-                        <p>Watering needs:</p> 
-                        <p>Every {{plant.time_till_dry}} days or moist soil</p>                                
+                        <span class="bold">Watering needs:</span> 
+                        <p>Every {{plant.time_till_dry}} days or moist soil</p>
                     </div>
-                    </div>
+                        
                     {%else%}
                     <span class="card-title bold"> {{plant.nickname}} </span>
                     <span class="bold">Type: </span>{{plant.type.common_name}}

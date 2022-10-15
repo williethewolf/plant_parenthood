@@ -38,7 +38,7 @@ Click to peek at the [Project Planning](https://trello.com/invite/b/hbyxIKmV/b09
 
 Click to peek at the [Project Code](https://github.com/williethewolf/plant_parenthood.git) 
 
-Most importantly you can enjoy the app by clicking this link: [PLANT PARENTHOOD](#)
+Most importantly you can enjoy the app by clicking this link: [PLANT PARENTHOOD](https://plantph.herokuapp.com/)
 
 ## Technologies Used
 - CSS
