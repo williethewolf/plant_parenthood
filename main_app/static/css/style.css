@@ -169,6 +169,10 @@ header nav ul li:hover > ul {
 
 /* RESPONSIVE TITLE */ 
 
+.page-footer .footer-copyright {
+  justify-content: center;
+  margin: 0 auto;
+}
 .footer-copyright {
   color: black;
 }
@@ -489,6 +493,9 @@ header nav ul li ul{
   margin: 10px 0;
 }
 
+.dropdown-content {
+  position:relative !important;
+}
 @media (max-width : 719px) {
 
   .addPlantBox {
@@ -640,6 +647,13 @@ header nav ul li ul{
   background: linear-gradient(180deg, rgba(165,214,167,1) 0%, rgba(255,255,255,1) 32%);  */
 }
 
+.mySlides img {
+  width: 100%;
+}
+
+.description p {
+  padding: 10px;
+}
 .roundCorners {
   border-radius: 20px;
 }
