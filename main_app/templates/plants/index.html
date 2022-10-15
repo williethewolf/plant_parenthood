@@ -14,7 +14,7 @@
                             {% if plant.photo_set.first %}
                             <img src="{{ plant.photo_set.first.url }}" alt="{{ plant.name }}">
                             {% else %}
-                            <img src="{{ plant.style.dbphoto_set.first.url }}" alt="{{ plant.name }}">
+                            <img src="{{ plant.type.dbphoto_set.first.url }}" alt="{{ plant.name }}">
                             {% endif %}
                             <span class="card-title">{{plant.nickname}}<span/>
                             <!-- <p>Type: {{plant.type.common_name}}</p> -->
