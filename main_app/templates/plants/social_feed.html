@@ -5,7 +5,7 @@
 {% block content %}
     <h1>{{page_name}}</h1>
     {% for plant in plants %}
-    <div class="col s12 m7">
+    <div class=" container col s6 m7 offset-m3 offset-l4">
             <div class="card horizontal">
                 <div class="card-image">
                     {% if plant.photo_set.first %}
@@ -13,7 +13,7 @@
                     {% else %}
                     <img src="{% static "imgs/plants/db-use/devils_ivy.png"%}" alt="{{plant.common_name}} image";>
                     {% endif %}
-                    <span class="card-title"> {{plant.nickname}} <span/>
+                    <span class="card-title"> {{plant.nickname}} <span class="green-text darken-2"><h6 style="display:inline !important">{{plant.user.username}}</h6></span> <span/>
                 </div>
                 <div class="card-stacked">
                     <div class="card-content">
@@ -24,7 +24,7 @@
                             <p><i>{{plant.type.botanical_name}}</i></p>
                         </div>
                         <div>
-                            <span class="card-field">Owner comments:</span>
+                            <span class="card-field"> <span class="green-text darken-2">{{plant.user.username}}</span> comments:</span>
                             <p class="card horizontal">{{plant.comments}}</p>
                         </div>
                     </div>
