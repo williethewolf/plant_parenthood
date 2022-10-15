@@ -166,6 +166,9 @@ header nav ul li:hover > ul {
 
 /* RESPONSIVE TITLE */ 
 
+.page-footer .footer-copyright {
+  justify-content: center;
+}
 .footer-copyright {
   color: black;
 }
